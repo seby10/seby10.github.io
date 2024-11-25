@@ -2,142 +2,272 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portafolio profesional de Sebastián Constante, Ingeniero en Software.">
-    <meta name="keywords" content="Portafolio, Ingeniería en Software, Sebastián Constante, Programación, Tecnología">
-    <meta name="author" content="Sebastián Constante">
-    <title>Sebastián Constante - Portafolio</title>
-    <link rel="stylesheet" href="css/index.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="images/favicon.png">
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portafolio profesional de Sebastián Constante, Ingeniero en Software.">
+  <meta name="keywords" content="Portafolio, Ingeniería en Software, Sebastián Constante, Programación, Tecnología">
+  <meta name="author" content="Sebastián Constante">
+  <title>Sebastián Constante - Portafolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="images/android-chrome-192x192.png" rel="icon">
+  <link href="images/apple-touch-icon.png" rel="apple-touch-icon">
 </head>
 
 <body>
-    <header>
-        <nav aria-label="Principal">
-            <ul>
-                <li><a href="#inicio" aria-label="Inicio">Inicio</a></li>
-                <li><a href="#sobre-mi" aria-label="Sobre Mí">Sobre Mí</a></li>
-                <li><a href="#tecnologias" aria-label="Tecnologías">Tecnologías</a></li>
-                <li><a href="#proyectos" aria-label="Proyectos">Proyectos</a></li>
-                <li><a href="#contacto" aria-label="Contacto">Contacto</a></li>
-            </ul>
-        </nav>
-    </header>
+  <!-- Header -->
+  <header id="header">
+    <div class="profile">
+      <img src="images/me.jpeg" Sebastián Constante" class="img-fluid rounded-circle">
+      <h1>Sebastián Constante</h1>
+      <div class="social-links">
+        <a href="https://www.instagram.com/_sebas.cn/" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://github.com/seby10" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="mailto:sebastianconstante04@hotmail.com"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
 
-    <main>
-        <section id="inicio" data-aos="fade-up">
-            <div class="perfil">
-                <img src="images/me.jpeg" alt="Foto de perfil de Sebastián Constante" class="foto-perfil">
-                <h1>Fabricio Sebastián Constante Naranjo</h1>
-                <p>Developer - Estudiante de Ingeniería en Software</p>
-            </div>
-        </section>
+    <nav class="nav-menu">
+      <ul>
+        <li><a href="#hero" class="active"><i class="fas fa-home"></i> <span>Inicio</span></a></li>
+        <li><a href="#about"><i class="fas fa-user"></i> <span>Sobre Mí</span></a></li>
+        <li><a href="#skills"><i class="fas fa-code"></i> <span>Tecnologías</span></a></li>
+        <li><a href="#portfolio"><i class="fas fa-project-diagram"></i> <span>Proyectos</span></a></li>
+        <li><a href="#contact"><i class="fas fa-envelope"></i> <span>Contacto</span></a></li>
+      </ul>
+    </nav>
+  </header>
 
-        <section id="sobre-mi" data-aos="fade-up">
-            <h2>Sobre Mí</h2>
-            <div class="informacion-personal">
-                <p>🙋 Soy Sebastián Constante, estudiante de Ingeniería en Software en la U.T.A.
-                    Me apasiona la programación, la tecnología y la innovación. ¡Siempre estoy buscando nuevos desafíos!
-                    Estoy en constante aprendizaje y me encanta adquirir nuevos conocimientos.
-                    ¡Listo para ayudar a quien lo necesite!</p>
+  <!-- Hero Section -->
+  <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
+    <div class="hero-container" data-aos="fade-in">
+      <h1>Sebastián Constante</h1>
+      <p>Developer - Estudiante de Ingeniería en Software</p>
+    </div>
+  </section>
 
+  <main id="main">
+    <!-- About Section -->
+    <section id="about" class="about">
+      <div class="container">
+        <div class="section-title">
+          <h2>Sobre Mí</h2>
+        </div>
+
+        <div class="row">
+          <div class="content" data-aos="fade-up">
+            <p>
+              🙋 Hola soy Sebastián Constante, estudiante de Ingeniería en Software en la U.T.A.
+              Me apasiona la programación, la tecnología y la innovación. ¡Siempre estoy buscando nuevos desafíos!
+              Estoy en constante aprendizaje y me encanta adquirir nuevos conocimientos.
+              ¡Listo para ayudar a quien lo necesite!
+            </p>
+
+            <div class="row mt-5">
+              <div class="col-lg-6">
                 <h3>Hobbies</h3>
                 <ul>
-                    <li>💪 Ejercitarme - Ir al Gym</li>
-                    <li>📖 Leer - Desarrollo Personal</li>
-                    <li>✨ Aprender nuevos idiomas - Inglés/Francés</li>
+                  <li><i class="fas fa-dumbbell"></i> <strong>Ejercitarme:</strong> Ir al Gym</li>
+                  <li><i class="fas fa-book"></i> <strong>Leer:</strong> Desarrollo Personal</li>
+                  <li><i class="fas fa-language"></i> <strong>Idiomas:</strong> Aprender Inglés/Francés</li>
                 </ul>
+              </div>
             </div>
-        </section>
 
-        <!-- Similar updates will be applied to other sections -->
-        <section id="tecnologias" data-aos="fade-up">
-            <h2>Tecnologías</h2>
-            <div class="lista-tecnologias">
-                <div class="grupo-tecnologias">
-                    <h3>Lenguajes de Programación</h3>
-                    <ul>
-                        <li>Java</li>
-                        <li>Python</li>
-                        <li>Javascript</li>
-                    </ul>
+            <div class="row mt-5">
+              <div class="col-lg-6">
+                <h3>Formación Académica</h3>
+                <div class="education-item">
+                  <h4>Ingeniería en Software</h4>
+                  <p><i class="fas fa-university"></i> Universidad Técnica de Ambato, Ecuador</p>
+                  <p><i class="fas fa-calendar-alt"></i> Cuarto Semestre / Año de Inicio: 2022</p>
                 </div>
-                <div class="grupo-tecnologias">
-                    <h3>Herramientas y Frameworks</h3>
-                    <ul>
-                        <li>Laravel</li>
-                        <li>Node.js</li>
-                        <li>Git</li>
-                    </ul>
+                <div class="education-item mt-4">
+                  <h4>Bachillerato en Ciencias</h4>
+                  <p><i class="fas fa-school"></i> Unidad Educativa San Pio X, Ambato, Ecuador</p>
+                  <p><i class="fas fa-graduation-cap"></i> Año de Titulación: 2022</p>
                 </div>
+              </div>
             </div>
-        </section>
 
-        <section id="formacion" data-aos="fade-up">
-            <h2>Formación Académica</h2>
-            <div class="estudios">
-                <div class="estudio">
-                    <h3>Ingeniería en Software</h3>
-                    <p>Universidad Tecnica de Ambato, Ecuador</p>
-                    <p>Cuarto Semestre / Año de Inicio: 2022</p>
+            <div class="row mt-5">
+              <div class="col-lg-6">
+                <h3>Certificados y Cursos</h3>
+                <div class="certificate-item">
+                  <h4><i class="fas fa-certificate"></i> Conference in Computer Science, Electronics and Industrial
+                    Engineering - 2024</h4>
+                  <a href="docs/C416_APROBA_1805424965_CONSTANTENARANJO.pdf" target="_blank" class="btn-certificate">Ver
+                    Certificado</a>
                 </div>
-                <div class="estudio">
-                    <h3>Bachillerato en Ciencias</h3>
-                    <p><a href="docs/CertificadoTituloEnLinea.pdf" target="_blank">Unidad Educativa San Pio X, Ambato,
-                            Ecuador</a></p>
-                    <p>Año de Titulación: 2022</p>
+                <br>
+                <div class="certificate-item mt-4">
+                  <h4><i class="fas fa-certificate"></i> Introduccion a IoT</h4>
+                  <a href="docs/Fabricio SebastiConstante Naranj-3A-SW-FISEI-ITN--certificate (1).pdf" target="_blank"
+                    class="btn-certificate">Ver
+                    Certificado</a>
                 </div>
+              </div>
             </div>
-        </section>
 
-        <section id="certificados" data-aos="fade-up">
-            <h2>Certificados y Cursos</h2>
-            <ul>
-                <li><a href="docs/20231125_C408_APROBA_1805424965_CONSTANTENARANJO.pdf" target="_blank">Conference in
-                        Computer Science, Electronics and Industrial Engeneering - 2023</a></li>
-                <li><a href="docs/C416_APROBA_1805424965_CONSTANTENARANJO.pdf" target="_blank">Conference in Computer
-                        Science, Electronics and Industrial Engeneering - 2024</a></li>
-            </ul>
-        </section>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <section id="proyectos" data-aos="fade-up">
-            <h2>Proyectos</h2>
-            <div class="lista-proyectos">
-                <div class="proyecto">
-                    <h3>Blog Website</h3>
-                    <p>Website en donde usuarios pueden publicar o leer blogs de todo tipo, usando Laravel</p>
-                    <a href="https://github.com/DavidJosueP2/Project-Read-On.git" target="_blank">Ver más</a>
-                </div>
-                <div class="proyecto">
-                    <h3>Sopa de Letras</h3>
-                    <p>Juego de Sopa de Letras en Java con niveles de dificultad, usando Estructuras de Datos</p>
-                    <a href="https://github.com/PabloAML1/SopaLetras.git" target="_blank">Ver más</a>
-                </div>
+    <!-- Skills Section -->
+    <section id="skills" class="skills section-bg">
+      <div class="container">
+        <div class="section-title">
+          <h2>Tecnologías</h2>
+        </div>
+
+        <div class="row skills-content">
+          <div class="col-lg-6" data-aos="fade-up">
+            <h3>Lenguajes de Programación</h3>
+            <div class="progress">
+              <span class="skill">Java <i class="val">80%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" style="width: 80%"></div>
+              </div>
             </div>
-        </section>
 
-        <section id="contacto" data-aos="fade-up">
-            <h2>Contacto</h2>
-            <div class="redes-sociales">
-                <a href="https://www.instagram.com/_sebas.cn/" target="_blank">Instagram</a>
-                <a href="https://github.com/seby10" target="_blank">GitHub</a>
-                <a href="mailto:sebastianconstante04@hotmail.com" target="_blank">Correo Electrónico</a>
+            <div class="progress">
+              <span class="skill">Python <i class="val">70%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" style="width: 70%"></div>
+              </div>
             </div>
-        </section>
-    </main>
 
-    <footer>
-        <p>© 2024 Sebastián Constante. Todos los derechos reservados.</p>
-    </footer>
+            <div class="progress">
+              <span class="skill">Javascript <i class="val">65%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" style="width: 65%"></div>
+              </div>
+            </div>
+          </div>
 
-    <script src="js/index.js"></script>
-    <script>
-        AOS.init();
-    </script>
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <h3>Herramientas y Frameworks</h3>
+            <div class="progress">
+              <span class="skill">Laravel <i class="val">60%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" style="width: 60%"></div>
+              </div>
+            </div>
+
+            <div class="progress">
+              <span class="skill">Node.js <i class="val">65%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" style="width: 65%"></div>
+              </div>
+            </div>
+
+            <div class="progress">
+              <span class="skill">Git <i class="val">75%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" style="width: 75%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolio" class="portfolio section-bg">
+      <div class="container">
+        <div class="section-title">
+          <h2>Proyectos</h2>
+        </div>
+        <div class="portfolio-container" data-aos="fade-up">
+          <div class="portfolio-item">
+            <div class="portfolio-wrap">
+              <img src="images/favicon.ico" alt="Blog Website" class="project-image">
+              <h4>ReadOn Blog</h4>
+              <p>Website en donde usuarios pueden publicar o leer blogs de todo tipo, desarrollado con Framework Laravel
+              </p>
+              <div class="portfolio-links">
+                <a href="https://github.com/DavidJosueP2/Project-Read-On.git" target="_blank">Ver Proyecto</a>
+              </div>
+            </div>
+          </div>
+          <div class="portfolio-item">
+            <div class="portfolio-wrap">
+              <img src="images/steptodown.com502717.jpg" alt="Sopa de Letras" class="project-image">
+              <h4>Sopa de Letras</h4>
+              <p>Juego de Sopa de Letras en Java Swing con niveles de dificultad, haciendo uso de Estructuras de Datos.
+              </p>
+              <div class="portfolio-links">
+                <a href="https://github.com/PabloAML1/SopaLetras.git" target="_blank">Ver Proyecto</a>
+              </div>
+            </div>
+          </div>
+          <div class="portfolio-item">
+            <div class="portfolio-wrap">
+              <img src="images/sa.png" alt="Nuevo Proyecto" class="project-image">
+              <h4>Elecciones Universitarias</h4>
+              <p>Un proyecto destinado a ofrecer informacion de la candidata Mary Cruz y su equipo de trabajo para las
+                elecciones universitarias 2024</p>
+              <div class="portfolio-links">
+                <a href="https://github.com/seby10/MCSProject" target="_blank">Ver Proyecto</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+      <div class="container">
+        <div class="section-title">
+          <h2>Contacto</h2>
+        </div>
+
+        <div class="row" data-aos="fade-up">
+          <div class="col-lg-12">
+            <div class="info">
+              <div class="email">
+                <i class="fas fa-envelope"></i>
+                <h4>Email:</h4>
+                <p><a href="mailto:sebastianconstante04@hotmail.com">sebastianconstante04@hotmail.com</a></p>
+              </div>
+
+              <div class="social">
+                <i class="fas fa-share-alt"></i>
+                <h4>Redes Sociales:</h4>
+                <p>
+                  <a href="https://www.instagram.com/_sebas.cn/" target="_blank"><i class="fab fa-instagram"></i>
+                    Instagram</a> |
+                  <a href="https://github.com/seby10" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!--
+  <footer id="footer" class="footer position-relative light-background">
+    <div class="container">
+      <div class="copyright text-center ">
+
+      </div>
+      <div class="credits">
+        <p>© <span>2024</span> <strong class="px-1 sitename">Sebastián Constante</strong> <span>. Todos los derechos
+            reservados.</span></p>
+      </div>
+    </div>
+  </footer>
+  -->
+
+  <script src="js/index.js"></script>
 </body>
 
 </html>
