@@ -1,0 +1,184 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import retrato from '../assets/sebastian.jpg';
+import Base from '../layouts/Base.astro';
+import Capitulo from '../components/Capitulo.astro';
+import Fila from '../components/Fila.astro';
+import Nota from '../components/Nota.astro';
+import {
+  ESTADOS,
+  ahora,
+  capitulos,
+  edicion,
+  experiencia,
+  formacion,
+  fueraDelCodigo,
+  idiomas,
+  metodo,
+  notaDelEditor,
+  notas,
+  portada,
+} from '../data/edicion';
+
+const todos = (await getCollection('casos')).sort((a, b) => a.data.orden - b.data.orden);
+const casos = todos.filter((c) => c.data.seccion === 'caso');
+const archivo = todos.filter((c) => c.data.seccion === 'archivo');
+const cap = Object.fromEntries(capitulos.map((c) => [c.id, c]));
+const dos = (n: number) => String(n).padStart(2, '0');
+---
+
+<Base>
+  <script
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: 'Sebastián Constante',
+      url: 'https://seby10.github.io/',
+      image: 'https://seby10.github.io/og.png',
+      description: 'Estudiante de Ingeniería en Software. Construyo aplicaciones web y aplico IA en ellas.',
+      homeLocation: { '@type': 'Place', name: 'Ambato, Ecuador' },
+      affiliation: { '@type': 'CollegeOrUniversity', name: 'Universidad Técnica de Ambato' },
+      knowsLanguage: ['es', 'en', 'fr'],
+      sameAs: [edicion.github],
+    })}
+  />
+  <section class="portada ancho">
+    <h1>Sebastián<br />Constante</h1>
+    <p class="correccion">
+      <span class="oculto">Antes decía:</span>
+      <s>{portada.antes}</s>
+    </p>
+    <p class="frase">{portada.frase}</p>
+
+    <dl class="estado-actual">
+      {
+        portada.estado.map((e) => (
+          <div>
+            <dt>{e.rotulo}</dt>
+            <dd>{e.texto}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <p class="accesos">
+      <a href="#casos">Ver casos →</a>
+      <a href={edicion.github}>GitHub</a>
+      <a href={`mailto:${edicion.correo}`}>Escribirme</a>
+    </p>
+  </section>
+
+  <Capitulo {...cap['nota-del-editor']}>
+    <Fragment slot="intro">{notaDelEditor.map((p) => <p>{p}</p>)}</Fragment>
+    <div slot="nota" class="margen">
+      <Image class="retrato" src={retrato} alt="Retrato de Sebastián Constante" width={288} height={288} />
+      <Nota texto={notas.editor} />
+    </div>
+  </Capitulo>
+
+  <Capitulo {...cap['en-el-trabajo']}>
+    <p slot="intro">Dónde he trabajado con sistemas y clientes reales.</p>
+    <Nota slot="nota" texto={notas.trabajo} />
+    <ol class="filas">
+      {experiencia.map((e) => <Fila etiqueta={e.fecha} titulo={e.lugar} texto={e.texto} meta={e.tipo} />)}
+    </ol>
+  </Capitulo>
+
+  <Capitulo {...cap['casos']}>
+    <p slot="intro">Cuatro proyectos contados a fondo: qué había que resolver, qué hice yo y qué haría distinto hoy.</p>
+    <ol class="filas">
+      {
+        casos.map((c, i) => (
+          <Fila
+            etiqueta={dos(i + 1)}
+            titulo={c.data.titulo}
+            texto={c.data.resumen}
+            meta={`${ESTADOS[c.data.estado]} · ${c.data.anio}`}
+            href={`/casos/${c.id}/`}
+            vista={c.data.figuras[0]?.src}
+            punto
+          />
+        ))
+      }
+    </ol>
+  </Capitulo>
+
+  <Capitulo {...cap['archivo']}>
+    <p slot="intro">Lo demás que he construido, en breve.</p>
+    <ol class="filas">
+      {
+        archivo.map((c) => (
+          <Fila
+            etiqueta={String(c.data.anio)}
+            titulo={c.data.titulo}
+            texto={c.data.resumen}
+            meta={ESTADOS[c.data.estado]}
+            href={c.data.enlaces[0]?.url}
+            vista={c.data.figuras[0]?.src}
+            punto
+          />
+        ))
+      }
+    </ol>
+  </Capitulo>
+
+  <Capitulo {...cap['metodo']}>
+    <Fragment slot="intro">
+      {
+        metodo.principios.map((p) => (
+          <p>
+            <strong>{p.titulo}.</strong> {p.texto}
+          </p>
+        ))
+      }
+    </Fragment>
+    <Nota slot="nota" texto={notas.metodo} />
+    <dl class="campos">
+      {
+        metodo.herramientas.map((h) => (
+          <div>
+            <dt>{h.estado}</dt>
+            <dd>{h.lista}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </Capitulo>
+
+  <Capitulo {...cap['ahora']}>
+    <ol class="filas">
+      {ahora.map((a) => <Fila etiqueta={a.fecha} titulo={a.titulo} texto={a.texto} meta={a.tipo} />)}
+    </ol>
+    <h3 class="subtitulo mono">Formación y reconocimientos</h3>
+    <ol class="filas">
+      {formacion.map((f) => <Fila etiqueta={f.fecha} titulo={f.titulo} texto={f.texto} meta={f.tipo} href={f.url} nivel="h4" />)}
+    </ol>
+    <h3 class="subtitulo mono">Idiomas</h3>
+    <p class="prosa">{idiomas}</p>
+  </Capitulo>
+
+  <Capitulo {...cap['fuera-del-codigo']}>
+    <Fragment slot="intro">{fueraDelCodigo.map((p) => <p>{p}</p>)}</Fragment>
+    <Nota slot="nota" texto={notas.fuera} />
+  </Capitulo>
+
+  <footer id="colofon" class="colofon ancho" aria-labelledby="colofon-titulo">
+    <div class="capitulo-cab">
+      <span class="mono" aria-hidden="true">—</span>
+      <h2 id="colofon-titulo">Colofón</h2>
+    </div>
+    <p class="frase">
+      Escríbeme a <a href={`mailto:${edicion.correo}`}>{edicion.correo}</a>
+    </p>
+    <p class="accesos">
+      <a href={edicion.github}>GitHub</a>
+    </p>
+    <p class="mono">
+      Edición {edicion.numero} · {edicion.fecha} · {edicion.lugar}. Compuesta en Fraunces, Instrument Sans e IBM Plex Mono.
+      Construida con Astro y con ayuda de agentes de programación.
+    </p>
+  </footer>
+</Base>

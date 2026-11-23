@@ -1,0 +1,26 @@
+---
+import { Image } from 'astro:assets';
+
+// La misma fila sirve para casos, archivo, experiencia y formación.
+interface Props {
+  etiqueta: string;
+  titulo: string;
+  texto: string;
+  meta: string;
+  href?: string;
+  punto?: boolean;
+  nivel?: 'h3' | 'h4';
+  vista?: ImageMetadata;
+}
+
+const { etiqueta, titulo, texto, meta, href, punto = false, nivel: Titulo = 'h3', vista } = Astro.props;
+---
+
+<li class="fila">
+  <span class="mono">{etiqueta}</span>
+  <Titulo>{href ? <a href={href}>{titulo}</a> : titulo}</Titulo>
+  <p>{texto}</p>
+  <span class:list={['mono', 'fila-meta', { estado: punto }]}>{meta}</span>
+  {/* Decorativa: solo con puntero fino, el título ya nombra el proyecto. */}
+  {vista && <Image class="fila-vista" src={vista} alt="" width={416} loading="lazy" />}
+</li>
