@@ -25,8 +25,8 @@ Sirve para retomar el trabajo sin perder contexto. Se actualiza al cerrar cada f
 | 7 Prototipado | Aprobada, con Fraunces |
 | 8 Desarrollo | Aprobada |
 | 9 Contenido | En curso. Cinco casos y cinco proyectos de archivo con capturas reales; faltan las notas al margen y las líneas «Por mejorar» del usuario |
-| 10 GitHub y LinkedIn | Borradores entregados en `borradores/` (fuera de git), pendientes de aprobación |
-| 11 Validación | Pendiente |
+| 10 GitHub y LinkedIn | GitHub aplicado. LinkedIn en borrador (`borradores/`), lo crea el usuario |
+| 11 Validación | Validada el 2026-11-24. Solo falta retirar `noindex` cuando el contenido sea definitivo |
 | 12 Entrega | Pendiente |
 
 ## Cómo ejecutar el sitio
@@ -198,6 +198,24 @@ Alternativas consideradas: HTML a mano (no escala el contenido), Eleventy (equiv
 ## Capturas de proyectos
 
 Las capturas de `src/assets/casos/` se tomaron con cada proyecto corriendo en local, con bases de datos propias en Docker y datos de prueba, nunca con las bases reales de los equipos. La placa del vehículo en la captura del detector está difuminada a propósito: es un vehículo real.
+
+## Validación (Fase 11)
+
+Medido el 2026-11-24 sobre la compilación de producción:
+
+| Prueba | Resultado |
+|---|---|
+| Lighthouse, portada y caso, móvil y escritorio | Rendimiento 99–100, accesibilidad 100, buenas prácticas 100. SEO 69 solo por `noindex` |
+| LCP / CLS / TBT en móvil | 1,7–2,0 s / ≤ 0,011 / 0 ms |
+| Peso transferido | 133 KB la portada en móvil, 181 KB una página de caso |
+| axe (WCAG 2.2 AA y buenas prácticas), 5 páginas en claro y oscuro | 0 violaciones |
+| Anchos 320, 375, 768, 1024 y 1440 px, 7 páginas | Sin desborde horizontal; áreas táctiles ≥ 24 px |
+| Teclado | Enlace de salto, foco visible en todos los controles, índice abre con Enter y cierra con Escape |
+| Movimiento reducido | Sin animaciones; se muestra el estado final |
+| Sin JavaScript | Todo el contenido visible |
+| Enlaces | 35 revisados, ninguno roto |
+
+Para repetirlo: `npm run build`, `npx astro preview` y Lighthouse sobre la dirección que indique.
 
 ## Datos por verificar
 
