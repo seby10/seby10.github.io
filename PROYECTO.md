@@ -23,9 +23,9 @@ Sirve para retomar el trabajo sin perder contexto. Se actualiza al cerrar cada f
 | 5 Estrategia narrativa | Aprobada |
 | 6 Sistema de diseño | Aprobada, junto con Astro |
 | 7 Prototipado | Aprobada, con Fraunces |
-| 8 Desarrollo | Iteraciones 1 y 2 aprobadas; iteración 3 entregada, pendiente de aprobación |
-| 9 Contenido | Pendiente |
-| 10 GitHub y LinkedIn | Pendiente |
+| 8 Desarrollo | Aprobada |
+| 9 Contenido | En curso. Cinco casos y cinco proyectos de archivo con capturas reales; faltan las notas al margen y las líneas «Por mejorar» del usuario |
+| 10 GitHub y LinkedIn | En curso |
 | 11 Validación | Pendiente |
 | 12 Entrega | Pendiente |
 
@@ -194,6 +194,10 @@ Motivo: hoy añadir un proyecto es copiar y pegar HTML. Con colecciones se añad
 Costo: aparece un paso de compilación, y la fuente de GitHub Pages pasa de «rama» a «GitHub Actions» en la configuración del repositorio.
 
 Alternativas consideradas: HTML a mano (no escala el contenido), Eleventy (equivalente, menos cercano a React y TypeScript), Next.js (más de lo que un sitio estático necesita).
+
+## Capturas de proyectos
+
+Las capturas de `src/assets/casos/` se tomaron con cada proyecto corriendo en local, con bases de datos propias en Docker y datos de prueba, nunca con las bases reales de los equipos. La placa del vehículo en la captura del detector está difuminada a propósito: es un vehículo real.
 
 ## Datos por verificar
 

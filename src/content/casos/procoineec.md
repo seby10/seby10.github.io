@@ -2,7 +2,7 @@
 titulo: Landing de Procoineec
 resumen: Página de una ferretería eléctrica, hecha en equipo durante mis prácticas en Gala Corp con Vite, React y Tailwind.
 anio: 2025
-orden: 5
+orden: 6
 seccion: archivo
 estado: en-uso
 figuras:

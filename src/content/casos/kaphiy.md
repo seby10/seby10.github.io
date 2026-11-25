@@ -12,6 +12,7 @@ parte:
   - Autenticación con JWT y acceso de barista por PIN en la API.
   - Módulo de cocina con WebSocket para que los pedidos lleguen sin recargar.
   - Pruebas unitarias, de integración y de extremo a extremo con Vitest y Playwright.
+  - El flujo de pedido con el asistente de IA en la app de clientes.
 decisiones:
   - titulo: Web en lugar de app nativa
     texto: El cliente escanea un QR en la mesa y pide desde el navegador, sin instalar nada.
@@ -32,8 +33,11 @@ nota:
   texto: Lo construimos, lo probamos en la cafetería y los números no dieron. Un sistema puede funcionar y aun así no convenir.
   fecha: Borrador
 figuras:
-  - src: ../../assets/casos/kaphiy-app.png
-    alt: Pantalla de inicio de la app de pedidos de Praliné, con el botón «Comenzar mi pedido con IA».
+  - src: ../../assets/casos/kaphiy-cocina.png
+    alt: Panel de cocina de Kaphiy con dos pedidos activos, sus productos, notas y botones para marcar pagado o iniciar la preparación.
+    pie: El panel de cocina recibe los pedidos en tiempo real, con las notas de cada cliente.
+  - src: ../../assets/casos/kaphiy-menu.png
+    alt: Menú de Praliné en la app de clientes, en un teléfono, con categorías y precios.
     pie: La app de clientes, a la que se entra escaneando un QR en la mesa.
   - src: ../../assets/casos/praline-landing.png
     alt: Landing de Praliné Coffee House con el acceso al menú.

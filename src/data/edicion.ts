@@ -50,14 +50,14 @@ export const experiencia = [
     fecha: 'Jul 2026 – Ene 2027',
     lugar: 'Empresa Eléctrica Ambato',
     texto:
-      'Pasante de TIC. Desarrollo y mantenimiento de sistemas internos, entre ellos un módulo de reportes y tableros con Angular, Spring Boot y Oracle.',
+      'Pasante de TIC. Construí el módulo de reportes y tableros del departamento de Relaciones Industriales, desarrollé un nuevo sprint del sistema de declaración de conflicto de intereses y mejoré los sistemas de transportes y de nómina. Angular, Spring Boot y Oracle.',
     tipo: 'Pasantía',
   },
   {
-    fecha: '8 semanas',
+    fecha: 'Jun – Ago 2025',
     lugar: 'Gala Corp',
     texto:
-      'Prácticas preprofesionales. Trabajé en equipo en la landing de Procoineec, publicada en procoineec.com, con Vite, React y Tailwind.',
+      'Prácticas preprofesionales, ocho semanas. Trabajé en equipo en la landing de Procoineec, publicada en procoineec.com, con Vite, React y Tailwind.',
     tipo: 'Prácticas',
   },
   {
@@ -74,13 +74,14 @@ export const metodo = {
     { titulo: 'Agentes con contexto', texto: 'Delego en agentes de programación y les dejo por escrito el contexto del proyecto.' },
     { titulo: 'Pruebas', texto: 'Unitarias, de integración y de extremo a extremo donde el proyecto lo pide.' },
   ],
-  // BORRADOR: clasificación deducida de los repositorios. Falta que la confirme.
   herramientas: [
-    { estado: 'Uso a diario', lista: 'Angular, Spring Boot, Java, Oracle, SQL, Git' },
+    {
+      estado: 'Uso a diario',
+      lista: 'TypeScript, Next.js, NestJS, PostgreSQL, Angular, Spring Boot, Java, Oracle, SQL, Git',
+    },
     {
       estado: 'En proyectos',
-      lista:
-        'TypeScript, Next.js, React, NestJS, Prisma, PostgreSQL, Python, Streamlit, YOLOv8, lógica difusa, Docker, Vitest, Playwright, Tailwind',
+      lista: 'React, Prisma, Python, Streamlit, YOLOv8, lógica difusa, Docker, Vitest, Playwright, Tailwind',
     },
     { estado: 'Explorando', lista: 'Seguridad ofensiva, aplicaciones con modelos de lenguaje' },
   ],
@@ -126,9 +127,9 @@ export const formacion = [
     tipo: 'Curso',
   },
   {
-    fecha: '2024 – 2025',
-    titulo: 'Excelencia académica',
-    texto: 'Periodo septiembre 2024 – febrero 2025, Universidad Técnica de Ambato.',
+    fecha: '2025',
+    titulo: 'Beca de excelencia académica',
+    texto: 'Por el rendimiento de septiembre 2024 a febrero 2025; beca en el quinto semestre. Universidad Técnica de Ambato.',
     tipo: 'Reconocimiento',
   },
   { fecha: '2022', titulo: 'Cuadro de honor', texto: 'Promoción 2022, Unidad Educativa San Pío X.', tipo: 'Reconocimiento' },
@@ -137,7 +138,8 @@ export const formacion = [
 export const idiomas = 'Español, lengua materna. Inglés avanzado. Francés básico, en práctica.';
 
 export const fueraDelCodigo = [
-  'Entreno. Leo y escribo sobre la vida, la mejora personal y lo que voy encontrando en la carrera.',
+  'Entreno. Escribo sobre la vida, la mejora personal y lo que voy encontrando en la carrera.',
+  'Leo ficción, mejora personal e introspección —Los cuatro acuerdos, El poder del ahora— y también arquitectura y diseño de software.',
   'Edito video con After Effects y Premiere, y hago diseño gráfico por gusto.',
 ];
 
