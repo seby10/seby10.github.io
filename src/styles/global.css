@@ -586,6 +586,11 @@ a:hover {
   overflow-wrap: anywhere;
 }
 
+/* El correo es el contacto principal: área táctil de al menos 24 px aunque la letra se reduzca. */
+.colofon .frase a {
+  padding-block: 0.25em;
+}
+
 .colofon .mono {
   max-width: 44em;
   margin-top: 2.5rem;

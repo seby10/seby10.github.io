@@ -2,13 +2,15 @@
 interface Props {
   texto: string;
   fecha?: string;
+  /** Capítulo o caso al que pertenece: distingue cada nota para los lectores de pantalla. */
+  de?: string;
 }
 
 // «Borrador» hasta que la nota se reescriba y se feche en la Fase 9.
-const { texto, fecha = 'Borrador' } = Astro.props;
+const { texto, fecha = 'Borrador', de } = Astro.props;
 ---
 
-<aside class="nota" aria-label="Nota al margen">
+<aside class="nota" aria-label={de ? `Nota al margen: ${de}` : 'Nota al margen'}>
   <span class="mono">Nota · {fecha}</span>
   {texto}
 </aside>

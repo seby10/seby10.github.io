@@ -75,13 +75,13 @@ const dos = (n: number) => String(n).padStart(2, '0');
     <Fragment slot="intro">{notaDelEditor.map((p) => <p>{p}</p>)}</Fragment>
     <div slot="nota" class="margen">
       <Image class="retrato" src={retrato} alt="Retrato de Sebastián Constante" width={288} height={288} />
-      <Nota texto={notas.editor} />
+      <Nota texto={notas.editor} de="Nota del editor" />
     </div>
   </Capitulo>
 
   <Capitulo {...cap['en-el-trabajo']}>
     <p slot="intro">Dónde he trabajado con sistemas y clientes reales.</p>
-    <Nota slot="nota" texto={notas.trabajo} />
+    <Nota slot="nota" texto={notas.trabajo} de="En el trabajo" />
     <ol class="filas">
       {experiencia.map((e) => <Fila etiqueta={e.fecha} titulo={e.lugar} texto={e.texto} meta={e.tipo} />)}
     </ol>
@@ -135,7 +135,7 @@ const dos = (n: number) => String(n).padStart(2, '0');
         ))
       }
     </Fragment>
-    <Nota slot="nota" texto={notas.metodo} />
+    <Nota slot="nota" texto={notas.metodo} de="Método" />
     <dl class="campos">
       {
         metodo.herramientas.map((h) => (
@@ -162,7 +162,7 @@ const dos = (n: number) => String(n).padStart(2, '0');
 
   <Capitulo {...cap['fuera-del-codigo']}>
     <Fragment slot="intro">{fueraDelCodigo.map((p) => <p>{p}</p>)}</Fragment>
-    <Nota slot="nota" texto={notas.fuera} />
+    <Nota slot="nota" texto={notas.fuera} de="Fuera del código" />
   </Capitulo>
 
   <footer id="colofon" class="colofon ancho" aria-labelledby="colofon-titulo">
