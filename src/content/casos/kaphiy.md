@@ -28,7 +28,7 @@ enlaces:
   - texto: Landing de Praliné
     url: https://praline-nfc-landing.vercel.app/
   - texto: Código
-    url: https://github.com/Arkasys-GDP/Khapiy
+    url: https://github.com/Arkasys-GDP/Kaphiy
 nota:
   texto: Lo construimos, lo probamos en la cafetería y los números no dieron. Un sistema puede funcionar y aun así no convenir.
   fecha: Borrador
