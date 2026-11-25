@@ -25,7 +25,7 @@ Sirve para retomar el trabajo sin perder contexto. Se actualiza al cerrar cada f
 | 7 Prototipado | Aprobada, con Fraunces |
 | 8 Desarrollo | Aprobada |
 | 9 Contenido | En curso. Cinco casos y cinco proyectos de archivo con capturas reales; faltan las notas al margen y las líneas «Por mejorar» del usuario |
-| 10 GitHub y LinkedIn | En curso |
+| 10 GitHub y LinkedIn | Borradores entregados en `borradores/` (fuera de git), pendientes de aprobación |
 | 11 Validación | Pendiente |
 | 12 Entrega | Pendiente |
 

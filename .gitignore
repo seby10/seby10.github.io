@@ -3,3 +3,6 @@ dist/
 .astro/
 .DS_Store
 .claude/
+
+# Borradores privados de la Fase 10 (GitHub y LinkedIn), no se publican
+borradores/
