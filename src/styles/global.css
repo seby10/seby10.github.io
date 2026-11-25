@@ -418,6 +418,15 @@ a:hover {
   width: 9rem;
   height: auto;
   filter: grayscale(1) contrast(1.05);
+  /* El fondo blanco de la foto toma el color del papel. */
+  mix-blend-mode: multiply;
+}
+
+@media (prefers-color-scheme: dark) {
+  .retrato {
+    mix-blend-mode: normal;
+    border: 1px solid var(--filete);
+  }
 }
 
 .problema {
