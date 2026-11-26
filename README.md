@@ -2,9 +2,9 @@
 
 Portafolio de Sebastián Constante, publicado en [seby10.github.io](https://seby10.github.io).
 
-El sitio funciona como una publicación: cada versión es una **edición** con número y fecha, y cada proyecto cuenta qué quedó por mejorar. Está hecho con [Astro](https://astro.build), sin frameworks de CSS ni librerías de animación, y se publica solo en GitHub Pages.
+Un cielo nocturno con aurora boreal en verde y celeste. Está hecho con [Astro](https://astro.build), [GSAP](https://gsap.com) para el movimiento y un shader WebGL escrito a mano para la aurora, sin Three.js. Se publica solo en GitHub Pages.
 
-Las decisiones de diseño y el registro del rediseño están en [PROYECTO.md](PROYECTO.md).
+La especificación del diseño está en [spec/2026-11-26-aurora.md](spec/2026-11-26-aurora.md) y el registro de decisiones en [PROYECTO.md](PROYECTO.md).
 
 ## Trabajar en local
 
@@ -12,9 +12,10 @@ Necesita Node 22.23 o superior.
 
 ```bash
 npm install
-npm run dev        # http://localhost:4321, con los borradores a la vista
+npm run dev        # http://localhost:4321
 npm run build      # compila la versión publicada en dist/
 npm run preview    # sirve dist/ para revisarla antes de publicar
+npm test           # comprueba el cálculo de la fase lunar
 ```
 
 ## Dónde está cada cosa
@@ -23,35 +24,33 @@ npm run preview    # sirve dist/ para revisarla antes de publicar
 |---|---|
 | Un proyecto | `src/content/casos/<nombre>.md` |
 | Sus capturas | `src/assets/casos/` |
-| Experiencia, formación, herramientas, «Ahora», notas al margen, datos de la edición | `src/data/edicion.ts` |
+| Portada, sobre mí, experiencia, stack, formación, contacto | `src/data/perfil.ts` |
 | Los campos que acepta un proyecto | `src/content.config.ts` |
-| Colores, tipografía, espaciado | `src/styles/global.css` |
-| Cabecera, barra, índice, metadatos | `src/layouts/Base.astro` |
-| Orden y contenido de los capítulos | `src/pages/index.astro` |
+| Colores, tipografía, espaciado | `src/styles/global.css` (tokens al inicio) |
+| Barra, metadatos, loader | `src/layouts/Base.astro`, `src/components/Loader.astro` |
+| Orden de las secciones | `src/pages/index.astro` |
 | Retrato | `src/assets/sebastian.jpg` (cuadrado) |
+| Logo (constelación SC) | `src/components/Logo.astro` y `public/favicon.svg` |
 | Imagen al compartir, iconos | `public/og.png` (1200×630), `public/favicon.png`, `public/apple-touch-icon.png` |
 
-## Borradores
+### Movimiento
 
-Lo que aún no está escrito se ve en `npm run dev` y **no sale en la versión publicada**:
+| Archivo | Qué hace |
+|---|---|
+| `src/scripts/aurora.ts` | Shader de la aurora, estrellas e hiperespacio. Arranca con la primera interacción o a los 3 s; sin GPU se queda el cielo en CSS |
+| `src/scripts/movimiento.ts` | GSAP: loader, nombre que se descifra, palabra que rota, entradas al hacer scroll, brillo de tarjetas |
+| `src/scripts/huevos.ts` | Easter eggs |
+| `src/scripts/luna.ts` | Fase lunar del día |
 
-- Una nota al margen sin `fecha`.
-- Un caso sin `porMejorar` (la línea «Por mejorar» no aparece).
+Con `prefers-reduced-motion` no se anima nada. Sin JavaScript todo el contenido se ve igual.
 
-Para publicar una nota de la portada, dale fecha en `src/pages/index.astro`:
+### Easter eggs
 
-```astro
-<Nota texto={notas.trabajo} fecha="Dic 2026" de="En el trabajo" />
-```
-
-En un caso, la fecha va en su archivo:
-
-```yaml
-nota:
-  texto: Lo construimos, lo probamos en la cafetería y los números no dieron.
-  fecha: Dic 2026
-porMejorar: Medir el costo por pedido antes de construir.
-```
+- Un clic en el cielo de la portada lanza una estrella fugaz; atrapar tres concede un deseo.
+- ↑ ↑ ↓ ↓ ← → ← → B A: salto al hiperespacio.
+- Un mensaje en la consola del navegador.
+- La luna muestra la fase real del día.
+- La 404 tiene un astronauta perdido.
 
 ## Recetas
 
@@ -59,30 +58,27 @@ porMejorar: Medir el costo por pedido antes de construir.
 
 1. Guarda las capturas en `src/assets/casos/`. PNG o JPG, de unos 1600 px de ancho. Sin datos reales de personas: si aparece algo privado, difumínalo antes.
 2. Crea `src/content/casos/<nombre>.md`. Copia uno parecido y cambia los campos:
-   - `seccion: caso` le da página propia; `seccion: archivo` lo deja como una fila.
-   - `orden` decide la posición (1 va primero).
+   - `seccion: caso` le da tarjeta grande y página propia; `seccion: archivo` lo deja en «Más proyectos».
+   - `orden` decide la posición. El 1 es la tarjeta destacada.
    - `estado`: `en-uso`, `probado-detenido`, `academico` o `prototipo`.
-   - La primera figura es también la vista previa de la fila.
+   - `stack`: cuatro o cinco tecnologías, las que un reclutador buscaría.
+   - `rol`: tu parte en una línea, para la tarjeta.
+   - La primera figura es la imagen de la tarjeta.
    - Un valor que contenga `: ` va entre comillas.
-3. En un caso, el cuerpo del archivo (debajo del segundo `---`) es el problema, en uno o dos párrafos. Si lo dejas vacío, la página dice «Caso en redacción».
+3. En un caso, el cuerpo del archivo (debajo del segundo `---`) es «El problema», en uno o dos párrafos.
 4. `npm run dev` y revísalo.
 
-### Añadir experiencia, un certificado o una herramienta
+### Añadir experiencia, un certificado o una tecnología
 
-Añade un elemento a `experiencia`, `formacion` o `metodo.herramientas` en `src/data/edicion.ts`, con la misma forma que los demás. Los más recientes van primero. Un certificado con insignia en Credly lleva su enlace en `url`.
+Añade un elemento a `experiencia`, `formacion.logros` o `stack` en `src/data/perfil.ts`, con la misma forma que los demás. Lo más reciente va primero. Un certificado con insignia en Credly lleva su enlace en `url`.
 
-### Cambiar lo que estás haciendo ahora
+### Cuando cambie tu situación
 
-`portada.estado` (las tres líneas bajo tu nombre) y `ahora` en `src/data/edicion.ts`. Revísalos cada vez que cambie tu trabajo o tus estudios: es lo primero que se lee.
+Revisa `perfil.rol`, `portada` y `sobreMi` en `src/data/perfil.ts`: es lo primero que se lee. Al conseguir empleo, cambia `portada.disponible`; al graduarte, `formacion.detalle`. Si cambia el titular, actualiza también el README de perfil de GitHub y LinkedIn.
 
-### Sacar una edición nueva
+### Escribir el texto
 
-Una edición nueva marca un hito: un empleo, la graduación, un proyecto grande.
-
-1. Sube `edicion.numero` y cambia `edicion.fecha` en `src/data/edicion.ts`.
-2. Si cambió el titular, cambia `portada.antes` (la frase tachada) y `portada.frase`.
-3. Revisa «Ahora», la experiencia y las notas al margen: lo que ya no es cierto se quita.
-4. Actualiza la portada del README de perfil de GitHub y LinkedIn si cambió la frase.
+Directo y en primera persona. Qué hiciste, con qué y para quién. Nada de «apasionado», «innovador» o «soluciones»; ningún dato que no puedas demostrar.
 
 ## Publicar
 
@@ -96,4 +92,4 @@ Antes de publicar:
 
 GitHub Pages debe tener **Settings › Pages › Source** en **GitHub Actions**. Si está en «Deploy from a branch», el sitio queda en blanco.
 
-Para revisar calidad después de un cambio grande: Lighthouse en la página publicada (Chrome o Edge, DevTools › Lighthouse). El 2026-11-24 dio 99–100 en rendimiento y 100 en accesibilidad y buenas prácticas; si algo baja, la causa suele ser una imagen nueva demasiado grande.
+Para revisar calidad después de un cambio grande: Lighthouse en la página publicada (Chrome o Edge, DevTools › Lighthouse). El 2026-11-26 dio 98 en rendimiento y 100 en accesibilidad, buenas prácticas y SEO, en celular y escritorio. Si algo baja, la causa suele ser una imagen nueva demasiado grande.

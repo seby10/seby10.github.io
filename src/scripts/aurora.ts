@@ -69,14 +69,28 @@ void main(){
 
 export function iniciarAurora(canvas: HTMLCanvasElement) {
   const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const arrancar = () => montar(canvas, quieto);
-  if ('requestIdleCallback' in window) requestIdleCallback(arrancar, { timeout: 1500 });
-  else setTimeout(arrancar, 300);
+  // El cielo en CSS ya se ve; WebGL entra con la primera interacción o a los 3 s,
+  // para no competir con la carga de la página.
+  let hecho = false;
+  const eventos = ['pointermove', 'pointerdown', 'keydown', 'scroll', 'touchstart'];
+  const empezar = () => {
+    if (hecho) return;
+    hecho = true;
+    eventos.forEach((e) => removeEventListener(e, empezar));
+    montar(canvas, quieto);
+  };
+  eventos.forEach((e) => addEventListener(e, empezar, { once: true, passive: true }));
+  setTimeout(empezar, 3000);
 }
 
 function montar(canvas: HTMLCanvasElement, quieto: boolean) {
   const gl = canvas.getContext('webgl', { antialias: false, alpha: false, powerPreference: 'low-power' });
   if (!gl) return; // Queda el cielo en CSS.
+  // Sin GPU (render por software) el shader cuesta cientos de ms por cuadro: mejor el cielo en CSS.
+  // `?aurora` lo fuerza, para capturas.
+  const info = gl.getExtension('WEBGL_debug_renderer_info');
+  const gpu = info ? String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL)) : '';
+  if (/swiftshader|llvmpipe|software|basic render/i.test(gpu) && !location.search.includes('aurora')) return;
 
   const prog = gl.createProgram()!;
   for (const [tipo, src] of [
@@ -86,10 +100,22 @@ function montar(canvas: HTMLCanvasElement, quieto: boolean) {
     const sh = gl.createShader(tipo)!;
     gl.shaderSource(sh, src);
     gl.compileShader(sh);
-    if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) return console.warn(gl.getShaderInfoLog(sh));
     gl.attachShader(prog, sh);
   }
   gl.linkProgram(prog);
+
+  // La compilación corre fuera del hilo principal cuando el navegador lo permite;
+  // preguntar por el estado antes de tiempo la volvería bloqueante.
+  const paralelo = gl.getExtension('KHR_parallel_shader_compile');
+  const esperar = () => {
+    if (paralelo && !gl.getProgramParameter(prog, paralelo.COMPLETION_STATUS_KHR)) return requestAnimationFrame(esperar);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return console.warn(gl.getProgramInfoLog(prog));
+    arrancar(gl, prog, canvas, quieto);
+  };
+  esperar();
+}
+
+function arrancar(gl: WebGLRenderingContext, prog: WebGLProgram, canvas: HTMLCanvasElement, quieto: boolean) {
   gl.useProgram(prog);
 
   gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());

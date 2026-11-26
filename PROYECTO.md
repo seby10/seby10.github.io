@@ -3,9 +3,20 @@
 Registro de decisiones del rediseño de `seby10.github.io`, el README de perfil de GitHub y LinkedIn.
 Sirve para retomar el trabajo sin perder contexto. Se actualiza al cerrar cada fase.
 
-Última actualización: 2026-11-25 · Rama de trabajo: `rediseno/edicion-01`, lista para fusionar en `main`.
+Última actualización: 2026-11-26 · Rama de trabajo: `rediseno/aurora`, lista para fusionar en `main`.
 
-Cómo mantener el sitio (añadir proyectos, certificados, notas, sacar una edición nueva, publicar): [README.md](README.md).
+Cómo mantener el sitio: [README.md](README.md).
+
+## Rediseño Aurora (2026-11-26)
+
+Reemplaza el diseño «Edición 01». Ese diseño sigue completo en la rama `rediseno/edicion-01`, y lo que sigue en este archivo desde «Reglas de trabajo» es su registro.
+
+- **Por qué:** el usuario quiso un sitio más directo para reclutadores y más visual. Repetir que es estudiante, el titular tachado y las notas al margen restaban en vez de sumar.
+- **Copy:** directo y en primera persona. La condición de estudiante aparece una vez, en Formación. Se quitaron las notas al margen, «Por mejorar», «Fuera del código» (queda una línea en Contacto), los congresos y el cuadro de honor.
+- **Diseño:** cielo nocturno (`#060E1C`) con verde `#4ADE80` y celeste `#7DD3FC`, Bricolage Grotesque en los títulos y un monograma «SC» como constelación.
+- **Movimiento:** aurora en un shader WebGL propio, GSAP para el loader, el descifrado del nombre, la palabra que rota y las entradas. Referencias de The Prompts Factory (Factory logo loader, CIPHER, STANZA, MANIFESTO), implementadas desde cero según sus términos.
+- **Rendimiento:** WebGL arranca con la primera interacción o a los 3 s y compila el shader en paralelo; sin GPU queda el cielo en CSS. Lighthouse del 2026-11-26: 98 / 100 / 100 / 100 en celular y escritorio. JS total: unos 48 KB comprimidos. axe: 0 violaciones en 7 páginas, con y sin movimiento reducido. Sin desborde de 320 a 1440 px.
+- Especificación: [spec/2026-11-26-aurora.md](spec/2026-11-26-aurora.md). Plan: [spec/2026-11-26-aurora-plan.md](spec/2026-11-26-aurora-plan.md).
 
 ## Reglas de trabajo
 
@@ -221,14 +232,12 @@ Para repetirlo: `npm run build`, `npx astro preview` y Lighthouse sobre la direc
 
 ## Datos por verificar
 
-Confirmados en la Fase 9: fechas de Gala Corp (junio a agosto de 2025), la parte del usuario en la pasantía y en Kaphiy, el periodo de la beca y las lecturas. Queda:
-
-- El texto y la fecha de cada nota al margen, y la línea «Por mejorar» de cada caso.
 - En LinkedIn, lo marcado **[verificar]** en `borradores/linkedin.md`.
 
 ## Pendientes fuera del rediseño
 
-- Crear el perfil de LinkedIn con `borradores/linkedin.md` y añadir su enlace al README de perfil de GitHub y al colofón.
+- Crear el perfil de LinkedIn con `borradores/linkedin.md` y añadir su enlace al README de perfil de GitHub y a Contacto.
+- Pasar la portada de LinkedIn y el README de perfil de GitHub a la paleta Aurora.
 - Subir la foto nueva (`borradores/foto/`) como avatar de GitHub y foto de LinkedIn.
 - Hacer privado el repositorio `landing` y revisar la descripción de los 14 repositorios restantes.
 - Gas-System: el equipo debe rotar las credenciales que quedaron en el historial. `techstore_quality`: revocar el token incrustado en la URL del remoto.

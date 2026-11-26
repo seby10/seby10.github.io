@@ -854,6 +854,8 @@ a:hover > .flecha {
 }
 
 .lista-logros a {
+  display: inline-block;
+  padding-block: 0.2rem;
   color: var(--celeste);
 }
 
