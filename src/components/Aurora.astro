@@ -1,0 +1,23 @@
+---
+import { caminoLuna, fase } from '../scripts/luna';
+
+// La luna sale con la fase del día de la compilación; el script la pone al día en el navegador.
+const luz = caminoLuna(fase(new Date()));
+---
+
+<div class="cielo" aria-hidden="true">
+  <canvas></canvas>
+</div>
+<svg class="luna" viewBox="0 0 48 48" aria-hidden="true">
+  <circle cx="24" cy="24" r="20" fill="#14243f"></circle>
+  <path d={luz} fill="#e8f1fa"></path>
+</svg>
+
+<script>
+  import { iniciarAurora } from '../scripts/aurora';
+  import { caminoLuna, fase } from '../scripts/luna';
+
+  document.querySelector('.luna path')?.setAttribute('d', caminoLuna(fase(new Date())));
+  const canvas = document.querySelector<HTMLCanvasElement>('.cielo canvas');
+  if (canvas) iniciarAurora(canvas);
+</script>

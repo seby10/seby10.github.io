@@ -5,6 +5,8 @@ anio: 2025
 orden: 5
 seccion: caso
 estado: academico
+stack: [Next.js, Microservicios, Docker, Kubernetes]
+rol: 'Construí todo el frontend: vistas por rol, reportes en PDF y tablero con gráficas.'
 estadoDetalle: Proyecto de Aplicaciones Distribuidas. Estuvo desplegado en Google Cloud con Kubernetes; hoy se levanta en local con Docker Compose.
 equipo: 'Equipo de cuatro. El frontend es mío por completo: los 28 commits de ese repositorio.'
 parte:

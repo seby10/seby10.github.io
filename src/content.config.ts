@@ -3,7 +3,7 @@ import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
 // Un archivo por proyecto en src/content/casos. El cuerpo del Markdown es el «problema».
-// seccion: «caso» tiene página propia; «archivo» es solo una fila en la portada.
+// seccion: «caso» tiene página propia y tarjeta grande; «archivo» va en «Más proyectos».
 const casos = defineCollection({
   loader: glob({ base: './src/content/casos', pattern: '*.md' }),
   schema: ({ image }) =>
@@ -14,15 +14,15 @@ const casos = defineCollection({
       orden: z.number(),
       seccion: z.enum(['caso', 'archivo']).default('caso'),
       estado: z.enum(['en-uso', 'probado-detenido', 'academico', 'prototipo']),
+      stack: z.array(z.string()).default([]),
+      // Mi parte en una línea, para la tarjeta.
+      rol: z.string().optional(),
       estadoDetalle: z.string().optional(),
       equipo: z.string().optional(),
       parte: z.array(z.string()).default([]),
       decisiones: z.array(z.object({ titulo: z.string(), texto: z.string() })).default([]),
-      porMejorar: z.string().optional(),
       enlaces: z.array(z.object({ texto: z.string(), url: z.url() })).default([]),
-      // Sin fecha la nota es borrador: solo se ve en local.
-      nota: z.object({ texto: z.string(), fecha: z.string().optional() }).optional(),
-      // La primera figura es también la vista previa de la fila en la portada.
+      // La primera figura es también la imagen de la tarjeta.
       figuras: z.array(z.object({ src: image(), alt: z.string(), pie: z.string().optional() })).default([]),
     }),
 });

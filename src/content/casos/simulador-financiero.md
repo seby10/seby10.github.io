@@ -5,6 +5,8 @@ anio: 2026
 orden: 2
 seccion: caso
 estado: academico
+stack: [NestJS, Next.js, Prisma, PostgreSQL]
+rol: 'Escribí gran parte del backend: los cargos del crédito, la protección CSRF y el despliegue.'
 estadoDetalle: Proyecto de Ingeniería Económica. Tiene configuración de despliegue para Render y Vercel; hoy corre en local.
 equipo: 'Equipo de seis. 52 de los 103 commits son míos, la mayoría en el backend.'
 parte:

@@ -1,9 +1,11 @@
 ---
-import '@fontsource-variable/fraunces/opsz.css';
+import '@fontsource-variable/bricolage-grotesque';
 import '@fontsource-variable/instrument-sans';
 import '@fontsource/ibm-plex-mono/400.css';
 import '../styles/global.css';
-import { capitulos, edicion } from '../data/edicion';
+import Logo from '../components/Logo.astro';
+import Loader from '../components/Loader.astro';
+import { perfil } from '../data/perfil';
 
 interface Props {
   titulo?: string;
@@ -13,10 +15,10 @@ interface Props {
 
 const {
   titulo,
-  descripcion = 'Estudiante de Ingeniería en Software en Ambato. Construyo aplicaciones web y aplico IA en ellas.',
+  descripcion = 'Desarrollador full stack en Ambato, Ecuador. Construyo aplicaciones web con NestJS, Next.js y PostgreSQL, y les sumo IA.',
   imagen = '/og.png',
 } = Astro.props;
-const tituloPagina = titulo ? `${titulo} · Sebastián Constante` : `Sebastián Constante · Edición ${edicion.numero}`;
+const tituloPagina = titulo ? `${titulo} · ${perfil.nombre}` : `${perfil.nombre} · ${perfil.rol}`;
 const canonica = new URL(Astro.url.pathname, Astro.site);
 const imagenSocial = new URL(imagen, Astro.site);
 ---
@@ -26,72 +28,55 @@ const imagenSocial = new URL(imagen, Astro.site);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Se retira en la Fase 11, cuando los textos dejen de ser borradores. -->
     <title>{tituloPagina}</title>
     <meta name="description" content={descripcion} />
     <link rel="canonical" href={canonica} />
     <link rel="sitemap" href="/sitemap.xml" />
 
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta name="theme-color" content="#f3efe6" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#141311" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#060e1c" />
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_EC" />
-    <meta property="og:site_name" content="Sebastián Constante" />
+    <meta property="og:site_name" content={perfil.nombre} />
     <meta property="og:title" content={tituloPagina} />
     <meta property="og:description" content={descripcion} />
     <meta property="og:url" content={canonica} />
     <meta property="og:image" content={imagenSocial} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Sebastián Constante, Edición 01" />
+    <meta property="og:image:alt" content={`${perfil.nombre}, ${perfil.rol}`} />
     <meta name="twitter:card" content="summary_large_image" />
 
     <slot name="head" />
   </head>
   <body>
+    <Loader />
     <a class="salto" href="#contenido">Saltar al contenido</a>
 
     <header class="barra">
-      <div class="ancho mono">
-        <a href="/">Sebastián Constante</a>
-        <span class="edicion">Edición {edicion.numero} · {edicion.fecha} · {edicion.lugar}</span>
+      <div class="ancho">
+        <a class="marca" href="/" aria-label={`${perfil.nombre}, inicio`}>
+          <Logo />
+          <span class="solo-ancho">{perfil.nombre}</span>
+        </a>
         <nav aria-label="Principal">
-          <button type="button" popovertarget="indice">Índice</button>
-          <a href="/#colofon">Contacto</a>
+          <a href="/#proyectos">Proyectos</a>
+          <a class="solo-ancho" href="/#experiencia">Experiencia</a>
+          <a class="boton principal" href="/#contacto">Escribirme</a>
         </nav>
       </div>
     </header>
-
-    <nav id="indice" class="indice" popover aria-label="Índice de la edición">
-      <div class="ancho">
-        <button type="button" class="mono" popovertarget="indice" popovertargetaction="hide">Cerrar</button>
-        <ol>
-          {
-            capitulos.map((c) => (
-              <li>
-                <a href={`/#${c.id}`}>
-                  <span class="mono" aria-hidden="true">{c.num}</span>
-                  {c.titulo}
-                </a>
-              </li>
-            ))
-          }
-        </ol>
-      </div>
-    </nav>
 
     <main id="contenido">
       <slot />
     </main>
 
-    <!-- El índice se cierra solo al elegir un capítulo. -->
-    <script is:inline>
-      document.getElementById('indice').addEventListener('click', (e) => {
-        if (e.target.closest('a')) e.currentTarget.hidePopover?.();
-      });
+    <script>
+      import '../scripts/movimiento';
+      import '../scripts/huevos';
     </script>
   </body>
 </html>

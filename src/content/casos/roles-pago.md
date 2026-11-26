@@ -5,6 +5,7 @@ anio: 2026
 orden: 7
 seccion: archivo
 estado: academico
+stack: [Flask, SQLite]
 figuras:
   - src: ../../assets/casos/roles-pago.png
     alt: Portada del proyecto integrador FERIAUTO con sus cuatro módulos y la barra de herramientas de nómina.

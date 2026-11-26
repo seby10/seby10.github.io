@@ -5,6 +5,8 @@ anio: 2026
 orden: 1
 seccion: caso
 estado: probado-detenido
+stack: [Next.js, NestJS, PostgreSQL, WebSocket, Playwright]
+rol: 'Hice el panel de cocina en tiempo real, la autenticación de la API y las pruebas.'
 estadoDetalle: Se probó con el cliente y se detuvo al evaluar la viabilidad económica. La landing de Praliné sigue en uso.
 equipo: Equipo de cuatro. 45 de los 74 commits del repositorio son míos.
 parte:
@@ -29,8 +31,6 @@ enlaces:
     url: https://praline-nfc-landing.vercel.app/
   - texto: Código
     url: https://github.com/Arkasys-GDP/Kaphiy
-nota:
-  texto: Lo construimos, lo probamos en la cafetería y los números no dieron. Un sistema puede funcionar y aun así no convenir.
 figuras:
   - src: ../../assets/casos/kaphiy-cocina.png
     alt: Panel de cocina de Kaphiy con dos pedidos activos, sus productos, notas y botones para marcar pagado o iniciar la preparación.

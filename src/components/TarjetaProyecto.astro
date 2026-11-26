@@ -1,0 +1,55 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import { ESTADOS } from '../data/perfil';
+
+interface Props {
+  caso: CollectionEntry<'casos'>;
+  destacada?: boolean;
+}
+
+const { caso, destacada = false } = Astro.props;
+const c = caso.data;
+const portada = c.figuras[0];
+// El código va aparte del enlace al caso; el resto de enlaces se ven en la página del caso.
+const codigo = c.enlaces.find((e) => e.texto.startsWith('Código'));
+const enVivo = c.enlaces.find((e) => !e.texto.startsWith('Código'));
+---
+
+<article class="tarjeta" data-revelar data-brillo>
+  {
+    portada && (
+      <Image
+        class="tarjeta-img"
+        src={portada.src}
+        alt=""
+        widths={destacada ? [640, 960, 1280] : [480, 720, 960]}
+        sizes={destacada ? '(min-width: 52rem) 40rem, 100vw' : '(min-width: 52rem) 34rem, 100vw'}
+        loading={destacada ? 'eager' : 'lazy'}
+      />
+    )
+  }
+  <div class="tarjeta-cuerpo">
+    <p class="tarjeta-meta mono">
+      <span class="estado">{ESTADOS[c.estado]}</span>
+      <span>{c.anio}</span>
+    </p>
+    <h3><a href={`/casos/${caso.id}/`}>{c.titulo}</a></h3>
+    <p>{c.resumen}</p>
+    {c.rol && (
+      <p class="rol-caso">
+        <strong>Mi parte:</strong> {c.rol}
+      </p>
+    )}
+    <ul class="chips" aria-label="Stack">
+      {c.stack.map((s) => <li class="chip">{s}</li>)}
+    </ul>
+    <p class="tarjeta-pie">
+      <a class="leer" href={`/casos/${caso.id}/`} tabindex="-1" aria-hidden="true">
+        Ver el caso <span class="flecha">→</span>
+      </a>
+      {enVivo && <a href={enVivo.url}>{enVivo.texto}</a>}
+      {codigo && <a href={codigo.url}>Código</a>}
+    </p>
+  </div>
+</article>

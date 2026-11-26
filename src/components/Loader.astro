@@ -1,0 +1,28 @@
+---
+import Logo from './Logo.astro';
+import { perfil } from '../data/perfil';
+---
+
+<!--
+  Solo en la primera visita de la sesión y sin movimiento reducido. Sin JavaScript no aparece.
+  El script en línea decide antes de pintar para que no parpadee.
+-->
+<script is:inline>
+  try {
+    if (!sessionStorage.getItem('visto') && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.dataset.loader = '';
+    }
+  } catch {}
+</script>
+<style is:global>
+  .loader {
+    display: none !important;
+  }
+  [data-loader] .loader {
+    display: grid !important;
+  }
+</style>
+<div class="loader" aria-hidden="true">
+  <Logo />
+  <p class="loader-nombre mono">{perfil.nombre}</p>
+</div>

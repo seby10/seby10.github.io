@@ -5,6 +5,7 @@ anio: 2026
 orden: 10
 seccion: archivo
 estado: prototipo
+stack: [Next.js, TypeScript]
 figuras:
   - src: ../../assets/casos/sentient.png
     alt: Sentient en un teléfono. El texto del diario menciona ansiedad y estrés, y la app marca el ánimo como «Ansioso».

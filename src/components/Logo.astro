@@ -1,0 +1,33 @@
+---
+// Monograma «SC» como constelación: trazos rectos entre estrellas.
+// El loader anima `.trazo` (dibujo) y `.astro` (aparición); en la barra se ve estático.
+interface Props {
+  class?: string;
+  titulo?: string;
+}
+
+const { class: clase, titulo } = Astro.props;
+
+const S = [
+  [40, 12], [16, 12], [10, 22], [16, 31], [34, 33], [40, 43], [34, 52], [10, 52],
+];
+const C = [
+  [88, 17], [76, 12], [63, 18], [58, 32], [63, 46], [76, 52], [88, 47],
+];
+const linea = (p: number[][]) => p.map((q) => q.join(',')).join(' ');
+const estrellas = [...S, ...C];
+// Las puntas brillan más.
+const grandes = new Set([0, S.length - 1, S.length, estrellas.length - 1]);
+---
+
+<svg
+  class:list={['logo', clase]}
+  viewBox="0 0 98 64"
+  role={titulo ? 'img' : undefined}
+  aria-label={titulo}
+  aria-hidden={titulo ? undefined : 'true'}
+>
+  <polyline class="trazo" points={linea(S)} pathLength="1" />
+  <polyline class="trazo" points={linea(C)} pathLength="1" />
+  {estrellas.map(([x, y], i) => <circle class="astro" cx={x} cy={y} r={grandes.has(i) ? 3.4 : 2.2} />)}
+</svg>

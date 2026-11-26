@@ -1,19 +1,48 @@
 ---
 import Base from '../layouts/Base.astro';
+import Aurora from '../components/Aurora.astro';
 ---
 
-<Base titulo="Página no encontrada" descripcion="Esta página no existe en la edición actual.">
-  <section class="portada ancho">
-    <p class="mono">Error 404</p>
-    <h1>Esta página<br />no existe</h1>
-    <p class="correccion">
-      <span class="oculto">Antes había aquí:</span>
-      <s>Una página que ya no está</s>
-    </p>
-    <p class="frase">Puede que la haya corregido o movido en esta edición.</p>
-    <p class="accesos">
-      <a href="/">Volver a la portada →</a>
-      <a href="/#casos">Ver casos</a>
-    </p>
+<Base titulo="Perdido en el espacio" descripcion="Esta página no existe.">
+  <section class="perdido portada" aria-labelledby="perdido-titulo">
+    <Aurora />
+    <div class="contenido ancho">
+      <svg class="astronauta" viewBox="0 0 120 140" aria-hidden="true">
+        <g fill="none" stroke="#e8f1fa" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M38 70 Q20 78 22 96" />
+          <path d="M82 70 Q100 62 104 46" />
+          <rect x="34" y="58" width="52" height="50" rx="18" fill="#14243f" />
+          <path d="M46 108 v18 M74 108 v18" />
+          <circle cx="60" cy="40" r="26" fill="#14243f" />
+          <path d="M44 38 a16 14 0 0 1 32 0 v4 a16 12 0 0 1 -32 0z" fill="#7dd3fc" stroke="#7dd3fc" />
+          <rect x="48" y="72" width="24" height="14" rx="3" />
+        </g>
+        <circle cx="66" cy="37" r="3" fill="#e8f1fa" />
+        <circle cx="54" cy="79" r="2" fill="#4ade80" />
+      </svg>
+      <p class="mono" style="color: var(--verde)">Error 404</p>
+      <h1 id="perdido-titulo">Perdido en el espacio</h1>
+      <p>Esta página no existe o se movió. La nave vuelve a la portada cuando quieras.</p>
+      <a class="boton principal" href="/">Volver a la portada <span class="flecha">→</span></a>
+    </div>
   </section>
+
+  <script>
+    // El astronauta flota y sigue al cursor con retraso.
+    const astro = document.querySelector<SVGElement>('.astronauta');
+    if (astro && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      let x = 0, y = 0, tx = 0, ty = 0;
+      addEventListener('pointermove', (e) => {
+        tx = (e.clientX / innerWidth - 0.5) * 60;
+        ty = (e.clientY / innerHeight - 0.5) * 40;
+      }, { passive: true });
+      const paso = (t: number) => {
+        x += (tx - x) * 0.03;
+        y += (ty - y) * 0.03;
+        astro.style.transform = `translate(${x}px, ${y + Math.sin(t / 900) * 8}px) rotate(${Math.sin(t / 1400) * 8 + x * 0.1}deg)`;
+        requestAnimationFrame(paso);
+      };
+      requestAnimationFrame(paso);
+    }
+  </script>
 </Base>

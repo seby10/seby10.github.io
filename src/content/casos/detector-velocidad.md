@@ -5,6 +5,8 @@ anio: 2026
 orden: 3
 seccion: caso
 estado: academico
+stack: [Python, YOLOv8, DeepSORT, Lógica difusa]
+rol: 'Calibré la lógica difusa y programé la votación que elige la lectura correcta de la placa.'
 estadoDetalle: Proyecto final de Inteligencia Artificial. Funciona con cámara web o con video; no está desplegado.
 equipo: Equipo de dos.
 parte:

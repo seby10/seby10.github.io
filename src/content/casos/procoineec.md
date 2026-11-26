@@ -5,6 +5,7 @@ anio: 2025
 orden: 6
 seccion: archivo
 estado: en-uso
+stack: [React, Vite, Tailwind]
 figuras:
   - src: ../../assets/casos/procoineec.jpg
     alt: Portada del sitio de Procoineec.

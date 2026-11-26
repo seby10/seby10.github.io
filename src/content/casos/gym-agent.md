@@ -5,6 +5,8 @@ anio: 2026
 orden: 4
 seccion: caso
 estado: academico
+stack: [Python, Streamlit, Apriori, Algoritmo genético]
+rol: 'Diseñé el flujo de razonamiento y programé sus módulos y el orquestador.'
 estadoDetalle: Proyecto de Inteligencia Artificial. Corre en local con Streamlit; no está desplegado.
 equipo: Equipo de dos. 7 de los 9 commits son míos.
 parte:
