@@ -40,10 +40,10 @@ function reloj() {
 export function avisar(contenido: string | HTMLElement, clase = '', ms = 3200) {
   const zona = document.querySelector('.aviso');
   if (!zona) return;
-  const caja = document.createElement('div');
-  if (clase) caja.className = clase;
+  // Un elemento se usa tal cual como tarjeta; un texto se envuelve en una.
+  const caja = typeof contenido === 'string' ? document.createElement('div') : contenido;
   if (typeof contenido === 'string') caja.textContent = contenido;
-  else caja.append(contenido);
+  if (clase) caja.classList.add(clase);
   zona.replaceChildren(caja);
   caja.animate([{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'none' }], { duration: 350, easing: 'cubic-bezier(.22,1,.36,1)' });
   if (ms) setTimeout(() => caja.isConnected && caja.remove(), ms);

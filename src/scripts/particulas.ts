@@ -108,8 +108,8 @@ function figuraTexto(texto: string, n: number): Figura {
   const out = new Float32Array(n * 2);
   for (let i = 0; i < n; i++) {
     const k = ((Math.random() * llenos.length) / 2) | 0;
-    out[i * 2] = (llenos[k * 2] - 450) / 130 + (Math.random() - 0.5) * 0.01;
-    out[i * 2 + 1] = -(llenos[k * 2 + 1] - 130) / 130;
+    out[i * 2] = (llenos[k * 2] - 450) / 255 + (Math.random() - 0.5) * 0.01;
+    out[i * 2 + 1] = -(llenos[k * 2 + 1] - 130) / 255;
   }
   return out;
 }
