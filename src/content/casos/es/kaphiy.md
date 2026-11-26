@@ -7,6 +7,13 @@ seccion: caso
 estado: probado-detenido
 stack: [Next.js, NestJS, PostgreSQL, WebSocket, Playwright]
 rol: 'Hice el panel de cocina en tiempo real, la autenticación de la API y las pruebas.'
+metricas:
+  - valor: '45/74'
+    texto: commits míos
+  - valor: '4'
+    texto: personas en el equipo
+  - valor: '0'
+    texto: apps que instalar para pedir
 estadoDetalle: Se probó con el cliente y se detuvo al evaluar la viabilidad económica. La landing de Praliné sigue en uso.
 equipo: Equipo de cuatro. 45 de los 74 commits del repositorio son míos.
 parte:
@@ -32,13 +39,13 @@ enlaces:
   - texto: Código
     url: https://github.com/Arkasys-GDP/Kaphiy
 figuras:
-  - src: ../../assets/casos/kaphiy-cocina.png
+  - src: ../../../assets/casos/kaphiy-cocina.png
     alt: Panel de cocina de Kaphiy con dos pedidos activos, sus productos, notas y botones para marcar pagado o iniciar la preparación.
     pie: El panel de cocina recibe los pedidos en tiempo real, con las notas de cada cliente.
-  - src: ../../assets/casos/kaphiy-menu.png
+  - src: ../../../assets/casos/kaphiy-menu.png
     alt: Menú de Praliné en la app de clientes, en un teléfono, con categorías y precios.
     pie: La app de clientes, a la que se entra escaneando un QR en la mesa.
-  - src: ../../assets/casos/praline-landing.png
+  - src: ../../../assets/casos/praline-landing.png
     alt: Landing de Praliné Coffee House con el acceso al menú.
     pie: La landing de Praliné, la parte que la cafetería sigue usando.
 ---

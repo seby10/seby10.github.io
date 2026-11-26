@@ -3,9 +3,22 @@
 Registro de decisiones del rediseño de `seby10.github.io`, el README de perfil de GitHub y LinkedIn.
 Sirve para retomar el trabajo sin perder contexto. Se actualiza al cerrar cada fase.
 
-Última actualización: 2026-11-26 · Rama de trabajo: `rediseno/aurora`, lista para fusionar en `main`.
+Última actualización: 2026-11-26 · Rama de trabajo: `rediseno/orbita`, lista para fusionar en `main`.
 
 Cómo mantener el sitio: [README.md](README.md).
+
+## Rediseño Órbita (2026-11-26)
+
+Reemplaza a Aurora, que el usuario encontró «no visual, no novedoso». Aurora sigue en la rama `rediseno/aurora`.
+
+- **Qué pidió:** algo disruptivo y visual al nivel de Awwwards, sin perder profesionalismo; sitio en español e inglés; CV descargable; paleta y tipografía a mi criterio; un easter egg del Macará; LinkedIn y GitHub al día.
+- **Paleta:** noche `#07080F`, celeste `#6EC8F5` (el del Macará) y lima `#C9F562`. Una banda celeste a todo el ancho rompe el ritmo oscuro.
+- **Tipografía:** Geist para todo, Instrument Serif en itálica para los acentos («Constante», la palabra que rota) y Geist Mono para los datos.
+- **Logo:** monograma «SC» de trazo grueso, con la C abierta como una órbita y un satélite en lima. Reemplaza a la constelación, que el usuario encontró poco legible.
+- **Movimiento:** galaxia de unas 7000 partículas en WebGL propio que forma el monograma y se dispersa al bajar; cursor propio con etiquetas; botones magnéticos; título letra por letra; frase que se ilumina con el scroll; proyectos en un carril horizontal fijado; transiciones de página.
+- **Contenido:** gym-agent sale; FERIAUTO (roles de pago) pasa a caso completo, verificado en su repositorio (16 de 17 commits). Se añaden Python Essentials 2 y, en curso, Google Cloud Computing Foundations y Ethical Hacking. Cada caso lleva métricas comprobables.
+- **CV:** una página A4 en cada idioma, generada desde el propio sitio (`npm run cv`).
+- **Calidad:** Lighthouse 97–100 / 100 / 100 / 100 en celular y escritorio; axe sin violaciones en 8 páginas; CLS 0.
 
 ## Rediseño Aurora (2026-11-26)
 

@@ -1,0 +1,148 @@
+---
+// Página de un proyecto, en el idioma que se pida.
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Icono from './Icono.astro';
+import { textos, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  id: string;
+}
+
+const { lang, id } = Astro.props;
+const t = textos(lang);
+const otro = textos(lang === 'es' ? 'en' : 'es');
+const casos = (await getCollection('casos', (c) => c.id.startsWith(`${lang}/`) && c.data.seccion === 'caso')).sort(
+  (a, b) => a.data.orden - b.data.orden,
+);
+const i = casos.findIndex((c) => c.id === `${lang}/${id}`);
+const caso = casos[i];
+const siguiente = casos[(i + 1) % casos.length];
+const c = caso.data;
+const { Content: Problema } = await render(caso);
+const [principal, ...otras] = c.figuras;
+const tamanos = '(min-width: 76rem) 72rem, 100vw';
+const dos = (n: number) => String(n).padStart(2, '0');
+---
+
+<Base lang={lang} titulo={c.titulo} descripcion={c.resumen} alterna={`${otro.rutas.caso}${id}/`}>
+  <article class="pagina-caso">
+    <header class="ancho caso-cab">
+      <a class="volver mono" href={`${t.rutas.inicio}#proyectos`}><Icono nombre="derecha" class="girada" /> {t.caso.volver}</a>
+      <p class="proyecto-meta mono">
+        <span class="proyecto-num">{dos(i + 1)}</span>
+        <span>{t.proyectos.estados[c.estado]}</span>
+        <span>{c.anio}</span>
+      </p>
+      <h1 class="titulo-gigante caso-titulo"><span class="linea" data-dividir>{c.titulo}</span></h1>
+      <p class="caso-resumen">{c.resumen}</p>
+      <div class="caso-fila">
+        {
+          c.metricas.length > 0 && (
+            <dl class="metricas">
+              {c.metricas.map((m) => (
+                <div>
+                  <dt>{m.valor}</dt>
+                  <dd>{m.texto}</dd>
+                </div>
+              ))}
+            </dl>
+          )
+        }
+        <div class="acciones">
+          {
+            c.enlaces.map((e, k) => (
+              <a class:list={['boton', 'magnetico', { principal: k === 0 }]} href={e.url}>
+                {/^(Código|Code)/.test(e.texto) ? <Icono nombre="GitHub" /> : <Icono nombre="flecha" />}
+                {e.texto}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+      <ul class="iconos-stack" aria-label="Stack">
+        {
+          c.stack.map((s) => (
+            <li>
+              <Icono nombre={s} />
+              <span>{s}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </header>
+
+    {
+      principal && (
+        <figure class="ancho figura figura-principal">
+          <Image src={principal.src} alt={principal.alt} widths={[640, 1280, 1600]} sizes={tamanos} loading="eager" />
+          {principal.pie && <figcaption class="mono">{principal.pie}</figcaption>}
+        </figure>
+      )
+    }
+
+    <div class="ancho caso-cuerpo">
+      <section aria-labelledby="problema">
+        <h2 class="etiqueta mono"><span>01</span> <span id="problema">{t.caso.problema}</span></h2>
+        <div class="prosa-caso" data-entrar>
+          <Problema />
+        </div>
+      </section>
+      <dl class="ficha" data-entrar>
+        <div>
+          <dt class="mono">{t.caso.parte}</dt>
+          <dd>
+            {c.equipo && <p class="tenue">{c.equipo}</p>}
+            <ul class="logros">
+              {c.parte.map((p) => <li>{p}</li>)}
+            </ul>
+          </dd>
+        </div>
+        {
+          c.estadoDetalle && (
+            <div>
+              <dt class="mono">{t.caso.estado}</dt>
+              <dd class="tenue">{c.estadoDetalle}</dd>
+            </div>
+          )
+        }
+      </dl>
+    </div>
+
+    {
+      c.decisiones.length > 0 && (
+        <section class="ancho caso-decisiones" aria-labelledby="decisiones">
+          <h2 class="etiqueta mono"><span>02</span> <span id="decisiones">{t.caso.decisiones}</span></h2>
+          <ol class="decisiones">
+            {c.decisiones.map((d, k) => (
+              <li class="caja" data-entrar data-brillo>
+                <span class="mono">{dos(k + 1)}</span>
+                <h3>{d.titulo}</h3>
+                <p class="tenue">{d.texto}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+      )
+    }
+
+    {
+      otras.map((f) => (
+        <figure class="ancho figura" data-entrar>
+          <Image src={f.src} alt={f.alt} widths={[640, 1280, 1600]} sizes={tamanos} />
+          {f.pie && <figcaption class="mono">{f.pie}</figcaption>}
+        </figure>
+      ))
+    }
+
+    <div class="ancho">
+      <a class="siguiente" href={`${t.rutas.caso}${siguiente.id.split('/')[1]}/`} data-cursor={t.caso.siguiente}>
+        <span class="mono">{t.caso.siguiente}</span>
+        <strong>{siguiente.data.titulo}</strong>
+        <Icono nombre="flecha" class="siguiente-flecha" />
+      </a>
+    </div>
+  </article>
+</Base>

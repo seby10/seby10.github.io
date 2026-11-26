@@ -1,0 +1,23 @@
+---
+// Datos estructurados (schema.org) para buscadores.
+import { datos, textos, type Lang } from '../i18n';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = textos(lang);
+const json = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: datos.nombre,
+  jobTitle: t.portada.rol,
+  url: 'https://seby10.github.io/',
+  image: 'https://seby10.github.io/og.png',
+  email: `mailto:${datos.correo}`,
+  homeLocation: { '@type': 'Place', name: 'Ambato, Ecuador' },
+  alumniOf: { '@type': 'CollegeOrUniversity', name: t.formacion.universidad },
+  knowsAbout: ['NestJS', 'Next.js', 'PostgreSQL', 'TypeScript', 'Angular', 'Spring Boot'],
+  knowsLanguage: ['es', 'en', 'fr'],
+  sameAs: [datos.github, datos.linkedin],
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(json)} />

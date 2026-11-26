@@ -5,7 +5,8 @@ import { z } from 'astro/zod';
 // Un archivo por proyecto en src/content/casos. El cuerpo del Markdown es el «problema».
 // seccion: «caso» tiene página propia y tarjeta grande; «archivo» va en «Más proyectos».
 const casos = defineCollection({
-  loader: glob({ base: './src/content/casos', pattern: '*.md' }),
+  // Un archivo por idioma: es/<id>.md y en/<id>.md, con las mismas claves.
+  loader: glob({ base: './src/content/casos', pattern: '{es,en}/*.md' }),
   schema: ({ image }) =>
     z.object({
       titulo: z.string(),
@@ -17,6 +18,8 @@ const casos = defineCollection({
       stack: z.array(z.string()).default([]),
       // Mi parte en una línea, para la tarjeta.
       rol: z.string().optional(),
+      // Datos verificables del proyecto: commits, tamaño del equipo, etc.
+      metricas: z.array(z.object({ valor: z.string(), texto: z.string() })).default([]),
       estadoDetalle: z.string().optional(),
       equipo: z.string().optional(),
       parte: z.array(z.string()).default([]),

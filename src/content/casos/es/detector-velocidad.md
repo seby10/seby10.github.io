@@ -7,6 +7,13 @@ seccion: caso
 estado: academico
 stack: [Python, YOLOv8, DeepSORT, Lógica difusa]
 rol: 'Calibré la lógica difusa y programé la votación que elige la lectura correcta de la placa.'
+metricas:
+  - valor: '20 km/h'
+    texto: límite del campus calibrado
+  - valor: '1'
+    texto: correo por placa, sin duplicados
+  - valor: '2'
+    texto: personas en el equipo
 estadoDetalle: Proyecto final de Inteligencia Artificial. Funciona con cámara web o con video; no está desplegado.
 equipo: Equipo de dos.
 parte:
@@ -21,10 +28,10 @@ decisiones:
   - titulo: Seguimiento entre fotogramas
     texto: Para medir la velocidad hay que saber que el vehículo que cruza la segunda línea es el mismo que cruzó la primera. DeepSORT le asigna un identificador estable.
 figuras:
-  - src: ../../assets/casos/detector-video.png
+  - src: ../../../assets/casos/detector-video.png
     alt: Tablero del detector procesando un video del campus. Dos líneas de referencia cruzan la calle; el panel derecho muestra la placa detectada, difuminada aquí, a 4,3 km/h con 93 % de confianza.
     pie: Un vehículo medido a 4,3 km/h y su placa leída con 93 % de confianza. La placa está difuminada a propósito.
-  - src: ../../assets/casos/detector-difuso.png
+  - src: ../../../assets/casos/detector-difuso.png
     alt: Dos gráficas de lógica difusa. Arriba, la velocidad de 25 km/h cae en la categoría «infracción». Abajo, el resultado es de 40 horas de sanción.
     pie: A 25 km/h el sistema difuso asigna 40 horas de sanción.
 ---

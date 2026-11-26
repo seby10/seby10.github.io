@@ -1,10 +1,10 @@
 # seby10.github.io
 
-Portafolio de Sebastián Constante, publicado en [seby10.github.io](https://seby10.github.io).
+Portafolio de Sebastián Constante, publicado en [seby10.github.io](https://seby10.github.io) en español y en [inglés](https://seby10.github.io/en/).
 
-Un cielo nocturno con aurora boreal en verde y celeste. Está hecho con [Astro](https://astro.build), [GSAP](https://gsap.com) para el movimiento y un shader WebGL escrito a mano para la aurora, sin Three.js. Se publica solo en GitHub Pages.
+Noche profunda con celeste (el del Macará) y lima. Hecho con [Astro](https://astro.build), [GSAP](https://gsap.com) para el movimiento y una galaxia de partículas en WebGL escrita a mano, sin Three.js. Se publica solo en GitHub Pages.
 
-La especificación del diseño está en [spec/2026-11-26-aurora.md](spec/2026-11-26-aurora.md) y el registro de decisiones en [PROYECTO.md](PROYECTO.md).
+Registro de decisiones: [PROYECTO.md](PROYECTO.md).
 
 ## Trabajar en local
 
@@ -15,66 +15,64 @@ npm install
 npm run dev        # http://localhost:4321
 npm run build      # compila la versión publicada en dist/
 npm run preview    # sirve dist/ para revisarla antes de publicar
-npm test           # comprueba el cálculo de la fase lunar
+npm run cv         # regenera los PDF del CV (necesita Microsoft Edge)
 ```
 
 ## Dónde está cada cosa
 
 | Para cambiar | Archivo |
 |---|---|
-| Un proyecto | `src/content/casos/<nombre>.md` |
+| Un proyecto | `src/content/casos/es/<id>.md` y `src/content/casos/en/<id>.md` (mismas claves) |
 | Sus capturas | `src/assets/casos/` |
-| Portada, sobre mí, experiencia, stack, formación, contacto | `src/data/perfil.ts` |
-| Los campos que acepta un proyecto | `src/content.config.ts` |
+| Todo el texto del sitio y del CV | `src/i18n/es.ts` y `src/i18n/en.ts` (misma forma) |
+| Correo, GitHub, LinkedIn | `datos` en `src/i18n/es.ts` |
+| Los campos de un proyecto | `src/content.config.ts` |
 | Colores, tipografía, espaciado | `src/styles/global.css` (tokens al inicio) |
-| Barra, metadatos, loader | `src/layouts/Base.astro`, `src/components/Loader.astro` |
-| Orden de las secciones | `src/pages/index.astro` |
-| Retrato | `src/assets/sebastian.jpg` (cuadrado) |
-| Logo (constelación SC) | `src/components/Logo.astro` y `public/favicon.svg` |
-| Imagen al compartir, iconos | `public/og.png` (1200×630), `public/favicon.png`, `public/apple-touch-icon.png` |
+| La portada y sus secciones | `src/components/Inicio.astro` |
+| Página de un proyecto | `src/components/Caso.astro` |
+| CV | `src/components/CV.astro` → `public/cv/*.pdf` con `npm run cv` |
+| Logo (monograma SC) | `src/components/Logo.astro`, `public/favicon.svg` y la figura de `src/scripts/particulas.ts` |
+| Iconos | `src/components/Icono.astro` (marcas de simple-icons e iconos propios) |
+| Imagen al compartir | `public/og.png` y `public/og-en.png` (1200×630) |
 
 ### Movimiento
 
 | Archivo | Qué hace |
 |---|---|
-| `src/scripts/aurora.ts` | Shader de la aurora, estrellas e hiperespacio. Arranca con la primera interacción o a los 3 s; sin GPU se queda el cielo en CSS |
-| `src/scripts/movimiento.ts` | GSAP: loader, nombre que se descifra, palabra que rota, entradas al hacer scroll, brillo de tarjetas |
+| `src/scripts/particulas.ts` | Galaxia de partículas: forma el monograma, se dispersa al bajar, el cursor la aparta. Arranca con la primera interacción; sin GPU queda el cielo en CSS |
+| `src/scripts/movimiento.ts` | GSAP: letras del título, palabra que rota, frase que se ilumina, carril horizontal de proyectos, entradas, cursor propio, botones magnéticos |
 | `src/scripts/huevos.ts` | Easter eggs |
-| `src/scripts/luna.ts` | Fase lunar del día |
 
-Con `prefers-reduced-motion` no se anima nada. Sin JavaScript todo el contenido se ve igual.
+Con `prefers-reduced-motion` no se anima nada. Sin JavaScript todo el contenido se ve.
 
 ### Easter eggs
 
-- Un clic en el cielo de la portada lanza una estrella fugaz; atrapar tres concede un deseo.
+- Escribir «macara» o tocar el balón en «Fuera del código»: ¡Vamos, Macará! Las partículas forman MACARÁ, cae confeti celeste y azul y cruza un balón.
 - ↑ ↑ ↓ ↓ ← → ← → B A: salto al hiperespacio.
-- Un mensaje en la consola del navegador.
-- La luna muestra la fase real del día.
+- Clic en el cielo de la portada: estrella fugaz; atrapar tres concede un deseo.
+- Un cohete en la consola del navegador.
 - La 404 tiene un astronauta perdido.
 
 ## Recetas
 
 ### Añadir un proyecto
 
-1. Guarda las capturas en `src/assets/casos/`. PNG o JPG, de unos 1600 px de ancho. Sin datos reales de personas: si aparece algo privado, difumínalo antes.
-2. Crea `src/content/casos/<nombre>.md`. Copia uno parecido y cambia los campos:
-   - `seccion: caso` le da tarjeta grande y página propia; `seccion: archivo` lo deja en «Más proyectos».
-   - `orden` decide la posición. El 1 es la tarjeta destacada.
-   - `estado`: `en-uso`, `probado-detenido`, `academico` o `prototipo`.
-   - `stack`: cuatro o cinco tecnologías, las que un reclutador buscaría.
-   - `rol`: tu parte en una línea, para la tarjeta.
-   - La primera figura es la imagen de la tarjeta.
+1. Guarda la captura en `src/assets/casos/`, de unos 1600 px de ancho. Sin datos reales de personas: difumina lo privado.
+2. Crea `src/content/casos/es/<id>.md` y su par en `src/content/casos/en/<id>.md`. Copia uno parecido:
+   - `seccion: caso` lo pone en el carril de proyectos con página propia; `seccion: archivo`, en «Más proyectos».
+   - `orden` decide la posición.
+   - `rol`: tu parte en una línea. `metricas`: datos que puedas demostrar (commits, tamaño del equipo).
    - Un valor que contenga `: ` va entre comillas.
-3. En un caso, el cuerpo del archivo (debajo del segundo `---`) es «El problema», en uno o dos párrafos.
-4. `npm run dev` y revísalo.
+3. El cuerpo del archivo es «El problema», en uno o dos párrafos.
+4. `npm run dev`, revísalo en los dos idiomas y regenera el CV con `npm run cv`.
 
 ### Añadir experiencia, un certificado o una tecnología
 
-Añade un elemento a `experiencia`, `formacion.logros` o `stack` en `src/data/perfil.ts`, con la misma forma que los demás. Lo más reciente va primero. Un certificado con insignia en Credly lleva su enlace en `url`.
+Añade el elemento en `src/i18n/es.ts` y en `src/i18n/en.ts` (`experiencia.lista`, `formacion.logros` o `stack.grupos`), con la misma forma que los demás. Lo más reciente va primero. Un certificado con insignia en Credly lleva su enlace en `url`. Después, `npm run cv`.
 
 ### Cuando cambie tu situación
 
-Revisa `perfil.rol`, `portada` y `sobreMi` en `src/data/perfil.ts`: es lo primero que se lee. Al conseguir empleo, cambia `portada.disponible`; al graduarte, `formacion.detalle`. Si cambia el titular, actualiza también el README de perfil de GitHub y LinkedIn.
+Revisa `portada` y `sobre` en los dos archivos de `src/i18n/`: es lo primero que se lee. Al conseguir empleo, cambia `portada.disponible`; al graduarte, `formacion.detalle`. Si cambia el titular, actualiza también el README de perfil de GitHub, LinkedIn y el CV.
 
 ### Escribir el texto
 
@@ -92,4 +90,4 @@ Antes de publicar:
 
 GitHub Pages debe tener **Settings › Pages › Source** en **GitHub Actions**. Si está en «Deploy from a branch», el sitio queda en blanco.
 
-Para revisar calidad después de un cambio grande: Lighthouse en la página publicada (Chrome o Edge, DevTools › Lighthouse). El 2026-11-26 dio 98 en rendimiento y 100 en accesibilidad, buenas prácticas y SEO, en celular y escritorio. Si algo baja, la causa suele ser una imagen nueva demasiado grande.
+Para revisar calidad después de un cambio grande: Lighthouse en la página publicada (Chrome o Edge, DevTools › Lighthouse). El 2026-11-26 dio 97–100 en rendimiento y 100 en accesibilidad, buenas prácticas y SEO, en celular y escritorio. Si algo baja, la causa suele ser una imagen nueva demasiado grande.

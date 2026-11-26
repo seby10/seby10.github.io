@@ -7,6 +7,13 @@ seccion: caso
 estado: academico
 stack: [NestJS, Next.js, Prisma, PostgreSQL]
 rol: 'Escribí gran parte del backend: los cargos del crédito, la protección CSRF y el despliegue.'
+metricas:
+  - valor: '52/103'
+    texto: commits míos
+  - valor: '6'
+    texto: personas en el equipo
+  - valor: '2'
+    texto: sistemas de amortización
 estadoDetalle: Proyecto de Ingeniería Económica. Tiene configuración de despliegue para Render y Vercel; hoy corre en local.
 equipo: 'Equipo de seis. 52 de los 103 commits son míos, la mayoría en el backend.'
 parte:
@@ -21,10 +28,10 @@ decisiones:
   - titulo: Sin administrador por defecto
     texto: La cuenta de administración la crea el seed a partir de variables de entorno; ninguna contraseña queda en el código.
 figuras:
-  - src: ../../assets/casos/simulador-amortizacion.png
+  - src: ../../../assets/casos/simulador-amortizacion.png
     alt: Tabla de amortización de un crédito de 10 000 dólares a 24 meses por el sistema francés, con abono, interés, cuota, seguro y saldo de cada mes.
     pie: Un crédito de 10 000 dólares a 24 meses, cuota por cuota.
-  - src: ../../assets/casos/simulador-panel.png
+  - src: ../../../assets/casos/simulador-panel.png
     alt: Panel de administración con accesos a tipos de crédito, pólizas a plazo fijo y solicitudes recibidas.
     pie: El panel desde el que la institución configura tasas, cargos y revisa solicitudes.
 enlaces:

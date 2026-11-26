@@ -1,0 +1,385 @@
+---
+// La portada completa, en el idioma que se pida. src/pages/index.astro y src/pages/en/index.astro la usan.
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import retrato from '../assets/sebastian.jpg';
+import Icono from './Icono.astro';
+import Logo from './Logo.astro';
+import { datos, textos, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = textos(lang);
+const todos = (await getCollection('casos', (c) => c.id.startsWith(`${lang}/`))).sort((a, b) => a.data.orden - b.data.orden);
+const casos = todos.filter((c) => c.data.seccion === 'caso');
+const archivo = todos.filter((c) => c.data.seccion === 'archivo');
+const slug = (id: string) => id.split('/')[1];
+const dos = (n: number) => String(n).padStart(2, '0');
+const marquesina = [...new Set(t.stack.grupos.slice(0, 2).flatMap((g) => g.lista))];
+
+// La frase de «Sobre mí» se parte en palabras para iluminarlas al hacer scroll.
+const piezas = t.sobre.frase.join(' ').split(/(\{\w+\})|\s+/).filter(Boolean);
+const iconosFrase: Record<string, string> = { rayo: 'rayo', chispa: 'chispa' };
+---
+
+<section class="portada" aria-labelledby="nombre">
+  <canvas class="particulas" aria-hidden="true"></canvas>
+  <div class="cielo-css" aria-hidden="true"></div>
+  <div class="ancho portada-rejilla">
+    <div class="portada-texto">
+      <a class="pastilla" href="#contacto">
+        <span class="latido" aria-hidden="true"></span>
+        {t.portada.disponible}
+      </a>
+      <h1 id="nombre" class="titulo-gigante">
+        <span class="linea" data-dividir>Sebastián</span>
+        <span class="linea serif" data-dividir>Constante</span>
+      </h1>
+      <p class="portada-rol">
+        <span class="mono">{t.portada.rol}</span>
+      </p>
+      <p class="construyo">
+        {t.portada.antes}{' '}
+        <span class="rota-caja"><span class="rota" data-rotar={JSON.stringify(t.portada.rota)}>{t.portada.rota[0]}</span></span>.
+      </p>
+      <ul class="iconos-stack" aria-label="Stack">
+        {
+          t.portada.stack.map((s) => (
+            <li>
+              <Icono nombre={s} />
+              <span>{s}</span>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="acciones">
+        <a class="boton principal magnetico" href="#proyectos" data-cursor={t.portada.verProyectos}>
+          {t.portada.verProyectos}
+          <Icono nombre="derecha" />
+        </a>
+        <a class="boton magnetico" href={t.cvPdf} download data-cursor="PDF">
+          <Icono nombre="descargar" />
+          {t.portada.descargarCv}
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="portada-pie ancho mono" aria-hidden="true">
+    <span><Icono nombre="ubicacion" /> {t.portada.lugar}</span>
+    <span><Icono nombre="reloj" /> <span data-reloj>--:--</span> {t.portada.hora}</span>
+    <span class="bajar">{t.portada.bajar} <span class="bajar-linea"></span></span>
+  </div>
+</section>
+
+<div class="marquesina" aria-hidden="true">
+  {
+    [0, 1].map(() => (
+      <ul>
+        {marquesina.map((s) => (
+          <li>
+            <Icono nombre={s} />
+            {s}
+          </li>
+        ))}
+      </ul>
+    ))
+  }
+</div>
+
+<section id="sobre-mi" class="seccion ancho sobre" aria-labelledby="sobre-titulo">
+  <h2 class="etiqueta mono" data-entrar><span>01</span> <span id="sobre-titulo">{t.sobre.titulo}</span></h2>
+  <p class="frase-grande" data-iluminar>
+    {
+      piezas.map((p) =>
+        p === '{retrato}' ? (
+          <span class="retrato-en-linea">
+            <Image src={retrato} alt="" width={160} height={160} densities={[1, 2]} />
+          </span>
+        ) : iconosFrase[p.slice(1, -1)] ? (
+          <span class="icono-en-linea">
+            <Icono nombre={iconosFrase[p.slice(1, -1)]} />
+          </span>
+        ) : (
+          <span class="palabra">{p} </span>
+        ),
+      )
+    }
+  </p>
+</section>
+
+<section class="banda" aria-label={lang === 'en' ? 'How I work' : 'Cómo trabajo'}>
+  <ol class="ancho como">
+    {
+      t.sobre.como.map((c, i) => (
+        <li data-entrar>
+          <span class="mono">{dos(i + 1)}</span>
+          <h3>{c.titulo}</h3>
+          <p>{c.texto}</p>
+        </li>
+      ))
+    }
+  </ol>
+</section>
+
+<section id="proyectos" class="seccion proyectos" aria-labelledby="proyectos-titulo">
+  <div class="ancho proyectos-cab">
+    <p class="etiqueta mono" data-entrar><span>02</span> <span>{t.proyectos.titulo}</span></p>
+    <h2 id="proyectos-titulo" class="titulo-seccion" data-entrar>{t.proyectos.intro}</h2>
+  </div>
+  <div class="carril-pin">
+    <ol class="carril">
+      {
+        casos.map((caso, i) => {
+          const c = caso.data;
+          const img = c.figuras[0];
+          const codigo = c.enlaces.find((e) => /^(Código|Code)/.test(e.texto));
+          const href = `${t.rutas.caso}${slug(caso.id)}/`;
+          return (
+            <li class="proyecto" data-brillo>
+              <a class="proyecto-img" href={href} data-cursor={t.proyectos.verCaso} tabindex="-1" aria-hidden="true">
+                {img && (
+                  <span class="ventana">
+                    <span class="ventana-barra"><i /><i /><i /></span>
+                    <Image src={img.src} alt="" widths={[640, 960, 1280]} sizes="(min-width: 60rem) 40vw, 88vw" loading={i === 0 ? 'eager' : 'lazy'} />
+                  </span>
+                )}
+              </a>
+              <div class="proyecto-info">
+                <p class="proyecto-meta mono">
+                  <span class="proyecto-num">{dos(i + 1)}</span>
+                  <span>{t.proyectos.estados[c.estado]}</span>
+                  <span>{c.anio}</span>
+                </p>
+                <h3>
+                  <a href={href}>{c.titulo}</a>
+                </h3>
+                <p class="proyecto-resumen">{c.resumen}</p>
+                {c.metricas.length > 0 && (
+                  <dl class="metricas">
+                    {c.metricas.map((m) => (
+                      <div>
+                        <dt>{m.valor}</dt>
+                        <dd>{m.texto}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                )}
+                <ul class="iconos-stack" aria-label="Stack">
+                  {c.stack.map((s) => (
+                    <li title={s}>
+                      <Icono nombre={s} />
+                      <span>{s}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p class="proyecto-enlaces">
+                  <a class="boton principal pequeno" href={href}>
+                    {t.proyectos.verCaso} <Icono nombre="flecha" />
+                  </a>
+                  {codigo && (
+                    <a class="boton pequeno" href={codigo.url}>
+                      <Icono nombre="GitHub" /> {t.proyectos.codigo}
+                    </a>
+                  )}
+                </p>
+              </div>
+            </li>
+          );
+        })
+      }
+    </ol>
+  </div>
+
+  <div class="ancho mas">
+    <h3 class="etiqueta mono" data-entrar><span>+</span> <span>{t.proyectos.mas}</span></h3>
+    <ul class="filas">
+      {
+        archivo.map((p) => {
+          const enlace = p.data.enlaces[0];
+          const img = p.data.figuras[0];
+          return (
+            <li class="fila" data-entrar data-vista={img ? '' : undefined}>
+              <a href={enlace?.url ?? '#'} data-cursor={enlace?.texto}>
+                <span class="fila-anio mono">{p.data.anio}</span>
+                <span class="fila-titulo">{p.data.titulo}</span>
+                <span class="fila-resumen">{p.data.resumen}</span>
+                <span class="fila-stack">
+                  {p.data.stack.map((s) => (
+                    <Icono nombre={s} titulo={s} />
+                  ))}
+                </span>
+                <Icono nombre="flecha" class="fila-flecha" />
+              </a>
+              {img && <Image class="fila-vista" src={img.src} alt="" width={352} densities={[1, 2]} loading="lazy" />}
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</section>
+
+<section id="experiencia" class="seccion ancho experiencia" aria-labelledby="experiencia-titulo">
+  <div class="experiencia-cab">
+    <p class="etiqueta mono" data-entrar><span>03</span> <span>{t.experiencia.titulo}</span></p>
+    <h2 id="experiencia-titulo" class="titulo-seccion" data-entrar>
+      {t.experiencia.intro}
+    </h2>
+  </div>
+  <ol class="puestos">
+    {
+      t.experiencia.lista.map((e, i) => (
+        <li class="puesto" data-entrar>
+          <span class="puesto-fecha mono">
+            {i === 0 && <span class="latido" aria-hidden="true" />}
+            {e.fecha}
+          </span>
+          <div>
+            <h3>
+              {e.cargo} <span>· {e.lugar}</span>
+            </h3>
+            <ul class="logros">
+              {e.logros.map((l) => (
+                <li>{l}</li>
+              ))}
+            </ul>
+            {e.stack.length > 0 && (
+              <ul class="iconos-stack" aria-label="Stack">
+                {e.stack.map((s) => (
+                  <li title={s}>
+                    <Icono nombre={s} />
+                    <span>{s}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</section>
+
+<section id="stack" class="seccion ancho" aria-labelledby="stack-titulo">
+  <h2 class="etiqueta mono" data-entrar><span>04</span> <span id="stack-titulo">{t.stack.titulo}</span></h2>
+  <div class="stack">
+    {
+      t.stack.grupos.map((g) => (
+        <div class="stack-grupo" data-entrar>
+          <h3 class="mono">{g.grupo}</h3>
+          <ul>
+            {g.lista.map((s) => (
+              <li class="tecla" data-brillo>
+                <Icono nombre={s} />
+                <span>{s}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<section id="formacion" class="seccion ancho" aria-labelledby="formacion-titulo">
+  <h2 class="etiqueta mono" data-entrar><span>05</span> <span id="formacion-titulo">{t.formacion.titulo}</span></h2>
+  <div class="bento">
+    <article class="caja caja-carrera" data-entrar data-brillo>
+      <Icono nombre="birrete" class="caja-icono" />
+      <span class="mono">{t.formacion.fecha}</span>
+      <h3>{t.formacion.carrera}</h3>
+      <p class="tenue">{t.formacion.universidad}</p>
+      <p>{t.formacion.detalle}</p>
+    </article>
+    <article class="caja caja-logros" data-entrar data-brillo>
+      <Icono nombre="insignia" class="caja-icono" />
+      <h3>{t.formacion.logrosTitulo}</h3>
+      <ul class="logros-lista">
+        {
+          t.formacion.logros.map((l) => (
+            <li>
+              <span class="mono">{l.fecha}</span>
+              <span>
+                {l.url ? <a href={l.url}>{l.titulo}</a> : <strong>{l.titulo}</strong>}
+                <span class="tenue"> {l.texto}</span>
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </article>
+    <article class="caja caja-idiomas" data-entrar data-brillo>
+      <Icono nombre="idioma" class="caja-icono" />
+      <h3>{t.formacion.idiomasTitulo}</h3>
+      <ul>
+        {
+          t.formacion.idiomas.map((i) => (
+            <li>
+              <strong>{i.idioma}</strong> <span class="tenue">{i.nivel}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </article>
+    <article class="caja caja-fuera" data-entrar data-brillo>
+      <h3>{t.fuera.titulo}</h3>
+      <ul>
+        {
+          t.fuera.lista.map((f) =>
+            f.icono === 'balon' ? (
+              <li>
+                <button type="button" class="boton-balon" data-macara data-cursor="⚽">
+                  <Icono nombre="balon" />
+                  {f.texto}
+                </button>
+              </li>
+            ) : (
+              <li>
+                <Icono nombre={f.icono} />
+                {f.texto}
+              </li>
+            ),
+          )
+        }
+      </ul>
+    </article>
+  </div>
+</section>
+
+<section id="contacto" class="seccion contacto" aria-labelledby="contacto-titulo">
+  <div class="ancho">
+    <p class="etiqueta mono" data-entrar><span>06</span> <span>{t.nav.contacto}</span></p>
+    <h2 id="contacto-titulo" class="titulo-contacto" data-entrar>
+      <span data-dividir>{t.contacto.titulo}</span>
+    </h2>
+    <p class="contacto-frase" data-entrar>{t.contacto.frase}</p>
+    <div class="correo-fila" data-entrar>
+      <a class="correo" href={`mailto:${datos.correo}`} data-cursor={t.contacto.escribir}>{datos.correo}</a>
+      <button type="button" class="boton pequeno" data-copiar={datos.correo} data-copiado={t.contacto.copiado}>
+        <Icono nombre="copiar" />
+        <span>{t.contacto.copiar}</span>
+      </button>
+    </div>
+    <ul class="redes" data-entrar>
+      <li><a class="boton principal magnetico" href={`mailto:${datos.correo}`}><Icono nombre="correo" /> {t.contacto.escribir}</a></li>
+      <li><a class="boton magnetico" href={datos.linkedin}><Icono nombre="LinkedIn" /> LinkedIn</a></li>
+      <li><a class="boton magnetico" href={datos.github}><Icono nombre="GitHub" /> GitHub</a></li>
+      <li><a class="boton magnetico" href={t.cvPdf} download><Icono nombre="descargar" /> {t.nav.cv}</a></li>
+    </ul>
+  </div>
+  <footer class="pie ancho mono">
+    <span class="pie-marca"><Logo /> © 2026 {datos.nombre}</span>
+    <span class="pie-pista">{t.pie.pista}</span>
+    <a href={datos.repo}>{t.pie.hecho}</a>
+  </footer>
+</section>
+
+<script>
+  import { iniciarParticulas } from '../scripts/particulas';
+
+  const lienzo = document.querySelector<HTMLCanvasElement>('.particulas');
+  if (lienzo) iniciarParticulas(lienzo);
+</script>

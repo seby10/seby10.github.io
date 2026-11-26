@@ -1,12 +1,19 @@
 ---
 titulo: Gas-System
-resumen: Gestión de conductores, vehículos, rutas y combustible sobre microservicios. Hice el frontend.
+resumen: Gestión de conductores, vehículos, rutas y combustible sobre microservicios.
 anio: 2025
 orden: 5
 seccion: caso
 estado: academico
 stack: [Next.js, Microservicios, Docker, Kubernetes]
 rol: 'Construí todo el frontend: vistas por rol, reportes en PDF y tablero con gráficas.'
+metricas:
+  - valor: '28/28'
+    texto: commits del frontend
+  - valor: '5'
+    texto: servicios, uno por dominio
+  - valor: '4'
+    texto: personas en el equipo
 estadoDetalle: Proyecto de Aplicaciones Distribuidas. Estuvo desplegado en Google Cloud con Kubernetes; hoy se levanta en local con Docker Compose.
 equipo: 'Equipo de cuatro. El frontend es mío por completo: los 28 commits de ese repositorio.'
 parte:
@@ -22,10 +29,10 @@ decisiones:
   - titulo: Monitoreo desde el inicio
     texto: El sistema incluye Prometheus y Grafana para ver el estado de los servicios.
 figuras:
-  - src: ../../assets/casos/gas-tablero.png
+  - src: ../../../assets/casos/gas-tablero.png
     alt: Tablero de Gas-System con el total de vehículos, conductores activos, rutas en curso, pérdida potencial de combustible y tasa de anomalías.
     pie: El tablero, con el sistema completo corriendo en local sobre Docker.
-  - src: ../../assets/casos/gas-vehiculos.png
+  - src: ../../../assets/casos/gas-vehiculos.png
     alt: Tabla de gestión de vehículos con placa, marca, modelo, año, kilometraje, tipo de motor, categoría y estado.
     pie: Gestión de vehículos con búsqueda, columnas configurables y exportación. Datos de prueba.
 enlaces:

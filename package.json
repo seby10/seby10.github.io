@@ -7,13 +7,17 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "test": "node pruebas/luna.test.ts"
+    "cv": "astro build && node scripts/cv.mjs && astro build"
   },
   "dependencies": {
-    "@fontsource-variable/bricolage-grotesque": "5.3.0",
-    "@fontsource-variable/instrument-sans": "^5.3.0",
-    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "@fontsource-variable/geist": "5.3.0",
+    "@fontsource-variable/geist-mono": "5.3.0",
+    "@fontsource/instrument-serif": "5.3.0",
     "astro": "^7.4.12",
-    "gsap": "3.15.1"
+    "gsap": "3.15.1",
+    "simple-icons": "16.37.0"
+  },
+  "devDependencies": {
+    "playwright-core": "1.56.1"
   }
 }

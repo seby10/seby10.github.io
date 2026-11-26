@@ -7,7 +7,7 @@ seccion: archivo
 estado: en-uso
 stack: [React, Vite, Tailwind]
 figuras:
-  - src: ../../assets/casos/procoineec.jpg
+  - src: ../../../assets/casos/procoineec.jpg
     alt: Portada del sitio de Procoineec.
 enlaces:
   - texto: Sitio

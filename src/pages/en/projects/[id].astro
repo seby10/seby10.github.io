@@ -1,0 +1,12 @@
+---
+import { getCollection } from 'astro:content';
+import Caso from '../../../components/Caso.astro';
+
+export async function getStaticPaths() {
+  return (await getCollection('casos', (c) => c.id.startsWith('en/') && c.data.seccion === 'caso')).map((c) => ({
+    params: { id: c.id.split('/')[1] },
+  }));
+}
+---
+
+<Caso lang="en" id={Astro.params.id} />

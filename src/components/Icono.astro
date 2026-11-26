@@ -1,0 +1,91 @@
+---
+// Iconos: marcas de tecnología desde simple-icons (CC0) e iconos de interfaz dibujados a mano.
+import * as si from 'simple-icons';
+
+interface Props {
+  nombre: string;
+  class?: string;
+  titulo?: string;
+}
+
+const { nombre, class: clase, titulo } = Astro.props;
+
+const marcas: Record<string, string> = {
+  TypeScript: 'siTypescript',
+  JavaScript: 'siJavascript',
+  'Next.js': 'siNextdotjs',
+  NestJS: 'siNestjs',
+  PostgreSQL: 'siPostgresql',
+  Angular: 'siAngular',
+  'Spring Boot': 'siSpringboot',
+  Java: 'siOpenjdk',
+  Git: 'siGit',
+  React: 'siReact',
+  Prisma: 'siPrisma',
+  Python: 'siPython',
+  Docker: 'siDocker',
+  Vitest: 'siVitest',
+  Tailwind: 'siTailwindcss',
+  Streamlit: 'siStreamlit',
+  YOLOv8: 'siUltralytics',
+  Vite: 'siVite',
+  Flask: 'siFlask',
+  SQLite: 'siSqlite',
+  SonarQube: 'siSonarqubeserver',
+  OpenCV: 'siOpencv',
+  PySide6: 'siQt',
+  Kubernetes: 'siKubernetes',
+  WebSocket: 'siSocketdotio',
+  GitHub: 'siGithub',
+  'Seguridad ofensiva': 'siKalilinux',
+  'Offensive security': 'siKalilinux',
+  'Aplicaciones con LLM': 'siAnthropic',
+  'LLM apps': 'siAnthropic',
+};
+
+// Trazos de 24 × 24, línea de 1,75.
+const interfaz: Record<string, string> = {
+  flecha: '<path d="M7 17 17 7M8 7h9v9"/>',
+  derecha: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  descargar: '<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',
+  correo: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+  copiar: '<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/>',
+  rayo: '<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>',
+  chispa: '<path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 17v4M17 19h4"/>',
+  diseno: '<path d="M12 19 5 12l7-9 7 9z"/><circle cx="12" cy="11" r="2"/><path d="M12 19v3"/>',
+  video: '<rect x="3" y="6" width="13" height="12" rx="2"/><path d="m16 10 5-3v10l-5-3"/>',
+  libro: '<path d="M4 19V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zm0 0a2 2 0 0 0 2 2h13"/>',
+  balon:
+    '<circle cx="12" cy="12" r="9"/><path d="m12 7.5 3.3 2.4-1.3 3.9h-4l-1.3-3.9zM12 3v4.5M15.3 9.9l4.4-1.6M14 13.8l2.7 3.7M10 13.8l-2.7 3.7M8.7 9.9 4.3 8.3"/>',
+  globo: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/>',
+  reloj: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  ubicacion: '<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
+  birrete: '<path d="m2 9 10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5M22 9v6"/>',
+  insignia: '<circle cx="12" cy="9" r="6"/><path d="m8.5 13.5-1.5 7.5 5-3 5 3-1.5-7.5"/>',
+  idioma: '<path d="M4 5h9M8.5 3v2c0 4-2.5 7-5 8.5M6 9c1 2 3.5 3.5 6 4"/><path d="m13 21 4-9 4 9M14.5 18h5"/>',
+};
+
+const marca = marcas[nombre] ? (si as unknown as Record<string, { path: string }>)[marcas[nombre]] : undefined;
+const iniciales = nombre
+  .split(/[\s.]+/)
+  .map((p) => p[0])
+  .join('')
+  .slice(0, 2)
+  .toUpperCase();
+---
+
+{
+  marca ? (
+    <svg class:list={['icono', 'icono-marca', clase]} viewBox="0 0 24 24" fill="currentColor" role={titulo ? 'img' : undefined} aria-label={titulo} aria-hidden={titulo ? undefined : 'true'}>
+      <path d={marca.path} />
+    </svg>
+  ) : nombre === 'LinkedIn' ? (
+    <svg class:list={['icono', 'icono-marca', clase]} viewBox="0 0 24 24" fill="currentColor" role={titulo ? 'img' : undefined} aria-label={titulo} aria-hidden={titulo ? undefined : 'true'}>
+      <path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm2.4 7.2V18h2.5v-7.8zM7.6 6a1.45 1.45 0 1 0 0 2.9 1.45 1.45 0 0 0 0-2.9zm3.3 4.2V18h2.4v-4.1c0-1.1.3-2.1 1.6-2.1s1.4 1.2 1.4 2.2v4h2.4v-4.5c0-2.2-.5-3.9-3-3.9-1.2 0-2 .6-2.4 1.3v-1.1z" />
+    </svg>
+  ) : interfaz[nombre] ? (
+    <svg class:list={['icono', clase]} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={interfaz[nombre]} />
+  ) : (
+    <span class:list={['icono', 'icono-letras', clase]} aria-hidden="true">{iniciales}</span>
+  )
+}

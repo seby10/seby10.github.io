@@ -7,7 +7,7 @@ seccion: archivo
 estado: academico
 stack: [JavaScript, SonarQube, Docker]
 figuras:
-  - src: ../../assets/casos/sonar-message.png
+  - src: ../../../assets/casos/sonar-message.png
     alt: Sala general de Sonar Message con el botón para entrar a la videollamada y el campo para escribir un mensaje.
 enlaces:
   - texto: Código

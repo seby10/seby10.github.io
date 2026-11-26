@@ -1,71 +1,86 @@
 ---
-import '@fontsource-variable/bricolage-grotesque';
-import '@fontsource-variable/instrument-sans';
-import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource-variable/geist';
+import '@fontsource-variable/geist-mono';
+import '@fontsource/instrument-serif/400-italic.css';
 import '../styles/global.css';
 import Logo from '../components/Logo.astro';
-import Loader from '../components/Loader.astro';
-import { perfil } from '../data/perfil';
+import Icono from '../components/Icono.astro';
+import { datos, textos, type Lang } from '../i18n';
+import geist from '@fontsource-variable/geist/files/geist-latin-wght-normal.woff2?url';
+import serif from '@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff2?url';
 
 interface Props {
+  lang: Lang;
   titulo?: string;
   descripcion?: string;
-  imagen?: string;
+  /** Ruta de esta misma página en el otro idioma. */
+  alterna?: string;
 }
 
-const {
-  titulo,
-  descripcion = 'Desarrollador full stack en Ambato, Ecuador. Construyo aplicaciones web con NestJS, Next.js y PostgreSQL, y les sumo IA.',
-  imagen = '/og.png',
-} = Astro.props;
-const tituloPagina = titulo ? `${titulo} · ${perfil.nombre}` : `${perfil.nombre} · ${perfil.rol}`;
+const { lang, titulo, descripcion, alterna } = Astro.props;
+const t = textos(lang);
+const tituloPagina = titulo ? `${titulo} · ${datos.nombre}` : t.meta.titulo;
+const desc = descripcion ?? t.meta.descripcion;
 const canonica = new URL(Astro.url.pathname, Astro.site);
-const imagenSocial = new URL(imagen, Astro.site);
+const otra = alterna ?? t.rutas.otro;
+const es = lang === 'es' ? Astro.url.pathname : otra;
+const en = lang === 'en' ? Astro.url.pathname : otra;
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{tituloPagina}</title>
-    <meta name="description" content={descripcion} />
+    <meta name="description" content={desc} />
     <link rel="canonical" href={canonica} />
+    <link rel="alternate" hreflang="es" href={new URL(es, Astro.site)} />
+    <link rel="alternate" hreflang="en" href={new URL(en, Astro.site)} />
+    <link rel="alternate" hreflang="x-default" href={new URL(es, Astro.site)} />
     <link rel="sitemap" href="/sitemap.xml" />
+    <link rel="preload" href={geist} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={serif} as="font" type="font/woff2" crossorigin />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta name="theme-color" content="#060e1c" />
+    <meta name="theme-color" content="#07080f" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content="es_EC" />
-    <meta property="og:site_name" content={perfil.nombre} />
+    <meta property="og:locale" content={t.locale} />
+    <meta property="og:site_name" content={datos.nombre} />
     <meta property="og:title" content={tituloPagina} />
-    <meta property="og:description" content={descripcion} />
+    <meta property="og:description" content={desc} />
     <meta property="og:url" content={canonica} />
-    <meta property="og:image" content={imagenSocial} />
+    <meta property="og:image" content={new URL(lang === 'en' ? '/og-en.png' : '/og.png', Astro.site)} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={`${perfil.nombre}, ${perfil.rol}`} />
+    <meta property="og:image:alt" content={t.meta.titulo} />
     <meta name="twitter:card" content="summary_large_image" />
 
     <slot name="head" />
   </head>
   <body>
-    <Loader />
-    <a class="salto" href="#contenido">Saltar al contenido</a>
+    <a class="salto" href="#contenido">{t.nav.saltar}</a>
 
     <header class="barra">
       <div class="ancho">
-        <a class="marca" href="/" aria-label={`${perfil.nombre}, inicio`}>
+        <a class="marca" href={t.rutas.inicio} aria-label={`${datos.nombre}, ${t.nav.inicio}`} data-cursor="Hola">
           <Logo />
-          <span class="solo-ancho">{perfil.nombre}</span>
+          <span class="solo-ancho">{datos.nombre}</span>
         </a>
         <nav aria-label="Principal">
-          <a href="/#proyectos">Proyectos</a>
-          <a class="solo-ancho" href="/#experiencia">Experiencia</a>
-          <a class="boton principal" href="/#contacto">Escribirme</a>
+          <a class="solo-ancho" href={`${t.rutas.inicio}#proyectos`}>{t.nav.proyectos}</a>
+          <a class="solo-ancho" href={`${t.rutas.inicio}#experiencia`}>{t.nav.experiencia}</a>
+          <a class="idioma" href={otra} hreflang={lang === 'es' ? 'en' : 'es'} lang={lang === 'es' ? 'en' : 'es'} aria-label={t.nav.idiomaLargo} data-cursor={t.nav.idiomaLargo}>
+            <Icono nombre="globo" />
+            {t.nav.idioma}
+          </a>
+          <a class="boton principal pequeno" href={t.cvPdf} download>
+            <Icono nombre="descargar" />
+            {t.nav.cv}
+          </a>
         </nav>
       </div>
     </header>
@@ -73,6 +88,12 @@ const imagenSocial = new URL(imagen, Astro.site);
     <main id="contenido">
       <slot />
     </main>
+
+    <div class="cursor" aria-hidden="true">
+      <span class="cursor-aro"><span class="cursor-texto"></span></span>
+      <span class="cursor-punto"></span>
+    </div>
+    <div class="aviso" role="status" aria-live="polite"></div>
 
     <script>
       import '../scripts/movimiento';
