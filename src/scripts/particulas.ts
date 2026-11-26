@@ -223,9 +223,9 @@ function arrancar(gl: WebGLRenderingContext, prog: WebGLProgram, canvas: HTMLCan
     gl.uniform1f(u.uAsp, asp);
     gl.uniform1f(u.uDpr, dpr);
     const ancho = asp > 1.1;
-    gl.uniform2f(u.uCentro, ancho ? 0.42 : 0.0, ancho ? 0.05 : 0.32);
-    gl.uniform2f(u.uFigura, ancho ? 0.5 : 0.0, ancho ? 0.18 : 0.5);
-    gl.uniform1f(u.uEscala, ancho ? 0.42 : 0.3);
+    gl.uniform2f(u.uCentro, ancho ? 0.5 : 0.0, ancho ? 0.05 : 0.32);
+    gl.uniform2f(u.uFigura, ancho ? 0.6 : 0.0, ancho ? 0.18 : 0.5);
+    gl.uniform1f(u.uEscala, ancho ? 0.36 : 0.3);
   };
   ajustar();
   new ResizeObserver(ajustar).observe(canvas);
