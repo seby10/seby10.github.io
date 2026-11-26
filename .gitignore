@@ -6,3 +6,5 @@ dist/
 
 # Borradores privados de la Fase 10 (GitHub y LinkedIn), no se publican
 borradores/
+# Certificados con datos personales: se guardan solo en local.
+docs/

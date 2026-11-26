@@ -63,7 +63,7 @@ Nada se publica hasta completar estos pasos, en este orden:
 3. En GitHub, **Settings > Pages > Source**, elegir **GitHub Actions**. Hacerlo antes del paso 4: si `main` recibe la rama con la fuente aún en «Deploy from a branch», GitHub serviría la raíz del repositorio, que ya no tiene `index.html`, y el sitio quedaría en blanco.
 4. Fusionar la rama en `main`. El flujo `.github/workflows/deploy.yml` compila y publica en cada push a `main`; también se puede lanzar a mano desde la pestaña Actions.
 
-Al publicar, los PDF de `docs/` dejan de servirse: solo se publica lo que hay en `public/` y lo que genera Astro. Para mostrar alguno, se copia a `public/docs/`.
+Los PDF de `docs/` (certificados con el número de cédula) se sacaron del repositorio el 2026-11-25 y quedan solo en local; `.gitignore` los excluye. Siguen en el historial de git. Para mostrar un certificado en el sitio, mejor enlazar su insignia de Credly que subir el PDF.
 
 | Archivo | Qué hace |
 |---|---|
@@ -79,7 +79,7 @@ Al publicar, los PDF de `docs/` dejan de servirse: solo se publica lo que hay en
 |---|---|---|
 | 1 | Los nueve tramos, índice, una página por caso, contenido separado del diseño | Aprobada |
 | 2 | Imágenes: foto, capturas de los proyectos, vista previa al pasar el cursor | Aprobada. Faltan capturas de gym-agent, Gas-System y el panel de cocina de Kaphiy |
-| 3 | SEO, Open Graph, favicon, página 404, despliegue con GitHub Actions, retirar el sitio anterior | Entregada. Los PDF de `docs/` siguen sin decidir |
+| 3 | SEO, Open Graph, favicon, página 404, despliegue con GitHub Actions, retirar el sitio anterior | Entregada. Los PDF de `docs/` se sacaron del repositorio en la Fase 12 |
 
 Fuera de alcance por ahora: el indicador de capítulo actual en la barra. Se añade si hace falta.
 
@@ -228,7 +228,6 @@ Confirmados en la Fase 9: fechas de Gala Corp (junio a agosto de 2025), la parte
 
 ## Pendientes fuera del rediseño
 
-- Decidir si se retiran del repositorio los certificados de `docs/` que contienen el número de cédula. El sitio nuevo ya no los sirve, pero el repositorio es público.
 - Crear el perfil de LinkedIn con `borradores/linkedin.md` y añadir su enlace al README de perfil de GitHub y al colofón.
 - Subir la foto nueva (`borradores/foto/`) como avatar de GitHub y foto de LinkedIn.
 - Hacer privado el repositorio `landing` y revisar la descripción de los 14 repositorios restantes.
