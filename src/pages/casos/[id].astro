@@ -72,10 +72,12 @@ const tamanos = '(min-width: 62rem) 44rem, 100vw';
               <dt>Estado</dt>
               <dd>{c.estadoDetalle}</dd>
             </div>
-            <div>
-              <dt>Por mejorar</dt>
-              <dd class:list={{ pendiente: !c.porMejorar }}>{c.porMejorar ?? 'Tu línea va aquí.'}</dd>
-            </div>
+            {(c.porMejorar || import.meta.env.DEV) && (
+              <div>
+                <dt>Por mejorar</dt>
+                <dd class:list={{ pendiente: !c.porMejorar }}>{c.porMejorar ?? 'Tu línea va aquí.'}</dd>
+              </div>
+            )}
             <div>
               <dt>Enlaces</dt>
               <dd class="enlaces">

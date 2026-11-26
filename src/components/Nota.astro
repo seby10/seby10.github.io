@@ -6,11 +6,16 @@ interface Props {
   de?: string;
 }
 
-// «Borrador» hasta que la nota se reescriba y se feche en la Fase 9.
-const { texto, fecha = 'Borrador', de } = Astro.props;
+// Sin fecha = borrador: se ve en local (`npm run dev`) y no sale en la versión publicada.
+const { texto, fecha, de } = Astro.props;
+const visible = Boolean(fecha) || import.meta.env.DEV;
 ---
 
-<aside class="nota" aria-label={de ? `Nota al margen: ${de}` : 'Nota al margen'}>
-  <span class="mono">Nota · {fecha}</span>
-  {texto}
-</aside>
+{
+  visible && (
+    <aside class="nota" aria-label={de ? `Nota al margen: ${de}` : 'Nota al margen'}>
+      <span class="mono">Nota · {fecha ?? 'Borrador'}</span>
+      {texto}
+    </aside>
+  )
+}

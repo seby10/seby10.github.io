@@ -31,7 +31,6 @@ enlaces:
     url: https://github.com/Arkasys-GDP/Kaphiy
 nota:
   texto: Lo construimos, lo probamos en la cafetería y los números no dieron. Un sistema puede funcionar y aun así no convenir.
-  fecha: Borrador
 figuras:
   - src: ../../assets/casos/kaphiy-cocina.png
     alt: Panel de cocina de Kaphiy con dos pedidos activos, sus productos, notas y botones para marcar pagado o iniciar la preparación.

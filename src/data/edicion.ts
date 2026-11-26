@@ -143,7 +143,7 @@ export const fueraDelCodigo = [
   'Edito video con After Effects y Premiere, y hago diseño gráfico por gusto.',
 ];
 
-// BORRADOR: notas al margen propuestas en la Fase 5. Cada una se reescribe y se fecha.
+// Notas al margen. Sin fecha son borrador: solo se ven en local. Para publicar una, pásale `fecha` en index.astro.
 export const notas = {
   editor: 'Durante un tiempo este sitio decía «Software Engineer». Todavía no lo soy. Prefiero decir lo que hago hoy.',
   trabajo:

@@ -20,7 +20,8 @@ const casos = defineCollection({
       decisiones: z.array(z.object({ titulo: z.string(), texto: z.string() })).default([]),
       porMejorar: z.string().optional(),
       enlaces: z.array(z.object({ texto: z.string(), url: z.url() })).default([]),
-      nota: z.object({ texto: z.string(), fecha: z.string() }).optional(),
+      // Sin fecha la nota es borrador: solo se ve en local.
+      nota: z.object({ texto: z.string(), fecha: z.string().optional() }).optional(),
       // La primera figura es también la vista previa de la fila en la portada.
       figuras: z.array(z.object({ src: image(), alt: z.string(), pie: z.string().optional() })).default([]),
     }),

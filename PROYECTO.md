@@ -3,7 +3,9 @@
 Registro de decisiones del rediseño de `seby10.github.io`, el README de perfil de GitHub y LinkedIn.
 Sirve para retomar el trabajo sin perder contexto. Se actualiza al cerrar cada fase.
 
-Última actualización: 2026-11-16 · Rama de trabajo: `rediseno/edicion-01` · `main` sigue siendo el sitio publicado.
+Última actualización: 2026-11-25 · Rama de trabajo: `rediseno/edicion-01`, lista para fusionar en `main`.
+
+Cómo mantener el sitio (añadir proyectos, certificados, notas, sacar una edición nueva, publicar): [README.md](README.md).
 
 ## Reglas de trabajo
 
@@ -24,10 +26,10 @@ Sirve para retomar el trabajo sin perder contexto. Se actualiza al cerrar cada f
 | 6 Sistema de diseño | Aprobada, junto con Astro |
 | 7 Prototipado | Aprobada, con Fraunces |
 | 8 Desarrollo | Aprobada |
-| 9 Contenido | En curso. Cinco casos y cinco proyectos de archivo con capturas reales; faltan las notas al margen y las líneas «Por mejorar» del usuario |
+| 9 Contenido | Completa para publicar. Cinco casos y cinco proyectos de archivo con capturas reales. Las notas al margen y las líneas «Por mejorar» quedan como borrador: no salen publicadas hasta que el usuario las escriba |
 | 10 GitHub y LinkedIn | GitHub aplicado. LinkedIn en borrador (`borradores/`), lo crea el usuario |
-| 11 Validación | Validada el 2026-11-24. Solo falta retirar `noindex` cuando el contenido sea definitivo |
-| 12 Entrega | Pendiente |
+| 11 Validación | Validada el 2026-11-24. `noindex` retirado en la Fase 12 |
+| 12 Entrega | Entregada el 2026-11-25: borradores ocultos en producción, `noindex` retirado, guía de mantenimiento en `README.md`. Falta publicar (ver «Cómo publicar») |
 
 ## Cómo ejecutar el sitio
 
@@ -48,7 +50,7 @@ Abre `http://localhost:4321`.
 | Cabecera, barra e índice | `src/layouts/Base.astro` |
 | El orden de los capítulos | `src/pages/index.astro` |
 
-Todo lo marcado como `BORRADOR` en `src/data/edicion.ts` y las notas con fecha «Borrador» se reescriben en la Fase 9.
+Las notas al margen sin fecha y los casos sin `porMejorar` son borradores: se ven con `npm run dev` y no salen en la compilación publicada (`import.meta.env.DEV`). Al darles fecha o texto, aparecen solos.
 
 El sitio anterior (`index.html`, `css/`, `js/`, `images/`) se retiró de esta rama en la iteración 3. Sigue en `main` y en el historial de git.
 
@@ -56,8 +58,8 @@ El sitio anterior (`index.html`, `css/`, `js/`, `images/`) se retiró de esta ra
 
 Nada se publica hasta completar estos pasos, en este orden:
 
-1. Reescribir los textos marcados como borrador (Fase 9) y quitar `noindex` de `src/layouts/Base.astro` (Fase 11).
-2. Hacer commit en `rediseno/edicion-01` y subir la rama.
+1. Hacer commit en `rediseno/edicion-01` y subir la rama. (Los borradores ya no bloquean: se ocultan solos en producción, y `noindex` se retiró.)
+2. Revisar `npm run build` y `npm run preview`.
 3. En GitHub, **Settings > Pages > Source**, elegir **GitHub Actions**. Hacerlo antes del paso 4: si `main` recibe la rama con la fuente aún en «Deploy from a branch», GitHub serviría la raíz del repositorio, que ya no tiene `index.html`, y el sitio quedaría en blanco.
 4. Fusionar la rama en `main`. El flujo `.github/workflows/deploy.yml` compila y publica en cada push a `main`; también se puede lanzar a mano desde la pestaña Actions.
 
@@ -205,7 +207,7 @@ Medido el 2026-11-24 sobre la compilación de producción:
 
 | Prueba | Resultado |
 |---|---|
-| Lighthouse, portada y caso, móvil y escritorio | Rendimiento 99–100, accesibilidad 100, buenas prácticas 100. SEO 69 solo por `noindex` |
+| Lighthouse, portada y caso, móvil y escritorio | Rendimiento 99–100, accesibilidad 100, buenas prácticas 100. SEO 69 solo por `noindex`; sin él, 100 (2026-11-25) |
 | LCP / CLS / TBT en móvil | 1,7–2,0 s / ≤ 0,011 / 0 ms |
 | Peso transferido | 133 KB la portada en móvil, 181 KB una página de caso |
 | axe (WCAG 2.2 AA y buenas prácticas), 5 páginas en claro y oscuro | 0 violaciones |
@@ -219,14 +221,21 @@ Para repetirlo: `npm run build`, `npx astro preview` y Lighthouse sobre la direc
 
 ## Datos por verificar
 
-- Fechas de las prácticas en Gala Corp.
-- Mi parte en cada sistema de la pasantía y en el asistente de pedidos de Kaphiy.
-- Periodo de la beca de excelencia académica.
-- Lecturas para el capítulo «Fuera del código».
-- Fecha de cada nota al margen.
+Confirmados en la Fase 9: fechas de Gala Corp (junio a agosto de 2025), la parte del usuario en la pasantía y en Kaphiy, el periodo de la beca y las lecturas. Queda:
+
+- El texto y la fecha de cada nota al margen, y la línea «Por mejorar» de cada caso.
+- En LinkedIn, lo marcado **[verificar]** en `borradores/linkedin.md`.
 
 ## Pendientes fuera del rediseño
 
-- Decidir si se retiran de `docs/` los certificados que contienen el número de cédula.
-- Crear un correo profesional y el perfil de LinkedIn.
-- Completar README y capturas de los repositorios destacados (fases 9 y 10).
+- Decidir si se retiran del repositorio los certificados de `docs/` que contienen el número de cédula. El sitio nuevo ya no los sirve, pero el repositorio es público.
+- Crear el perfil de LinkedIn con `borradores/linkedin.md` y añadir su enlace al README de perfil de GitHub y al colofón.
+- Subir la foto nueva (`borradores/foto/`) como avatar de GitHub y foto de LinkedIn.
+- Hacer privado el repositorio `landing` y revisar la descripción de los 14 repositorios restantes.
+- Gas-System: el equipo debe rotar las credenciales que quedaron en el historial. `techstore_quality`: revocar el token incrustado en la URL del remoto.
+- Opcional: versión del sitio en inglés. La estructura ya separa contenido y diseño.
+
+## Decisiones de la Fase 12
+
+- **Borradores ocultos en producción** en vez de bloquear la publicación hasta tener todas las notas: el sitio sale completo y cada nota aparece cuando tiene fecha.
+- **Guía de mantenimiento en `README.md`**, no en este archivo: es lo que GitHub muestra al abrir el repositorio y lo que se consulta al añadir algo. Este archivo queda como registro de decisiones.
