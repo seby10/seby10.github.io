@@ -59,7 +59,8 @@ void main(){
     vec2 d=(uv-.5)*vec2(asp,1.);
     float a=atan(d.y,d.x),r=length(d);
     float id=floor(a*90.);
-    float linea=step(.93,h(vec2(id,1.)))*smoothstep(.0,.35,fract(r*1.5-t*2.5+h(vec2(id,2.))*9.));
+    float fino=smoothstep(.18,0.,abs(fract(a*90.)-.5));
+    float linea=step(.9,h(vec2(id,1.)))*fino*smoothstep(.0,.35,fract(r*1.5-t*2.5+h(vec2(id,2.))*9.));
     col+=vec3(.75,.93,1.)*linea*smoothstep(.02,.4,r)*uSalto;
   }
 

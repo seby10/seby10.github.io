@@ -11,6 +11,8 @@ import { perfil } from '../data/perfil';
   try {
     if (!sessionStorage.getItem('visto') && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
       document.documentElement.dataset.loader = '';
+      // Si el script de movimiento no carga, el loader se va solo.
+      setTimeout(() => delete document.documentElement.dataset.loader, 3000);
     }
   } catch {}
 </script>
@@ -20,6 +22,13 @@ import { perfil } from '../data/perfil';
   }
   [data-loader] .loader {
     display: grid !important;
+  }
+  .loader .astro {
+    opacity: 0;
+  }
+  .loader .trazo {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
   }
 </style>
 <div class="loader" aria-hidden="true">
